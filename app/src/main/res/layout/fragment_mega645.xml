@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_mega645"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/title_padding"
+        android:text="@string/title_lottery_mega"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/title_text_size"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txt_time_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Kỳ 00045"
+            android:textColor="@color/textPrimary"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_time_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="20/11/2016"
+            android:textColor="@color/textPrimary"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txt_ball_1"
+            android:layout_width="@dimen/ball_width"
+            android:layout_height="@dimen/ball_height"
+            android:layout_marginRight="@dimen/ball_margin_right"
+            android:background="@drawable/custom_ball"
+            android:gravity="center"
+            android:text="10"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/txt_ball_2"
+            android:layout_width="@dimen/ball_width"
+            android:layout_height="@dimen/ball_height"
+            android:layout_marginRight="@dimen/ball_margin_right"
+            android:background="@drawable/custom_ball"
+            android:gravity="center"
+            android:text="10"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/txt_ball_3"
+            android:layout_width="@dimen/ball_width"
+            android:layout_height="@dimen/ball_height"
+            android:layout_marginRight="@dimen/ball_margin_right"
+            android:background="@drawable/custom_ball"
+            android:gravity="center"
+            android:text="10"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/txt_ball_4"
+            android:layout_width="@dimen/ball_width"
+            android:layout_height="@dimen/ball_height"
+            android:layout_marginRight="@dimen/ball_margin_right"
+            android:background="@drawable/custom_ball"
+            android:gravity="center"
+            android:text="10"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/txt_ball_5"
+            android:layout_width="@dimen/ball_width"
+            android:layout_height="@dimen/ball_height"
+            android:layout_marginRight="@dimen/ball_margin_right"
+            android:background="@drawable/custom_ball"
+            android:gravity="center"
+            android:text="10"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/txt_ball_6"
+            android:layout_width="@dimen/ball_width"
+            android:layout_height="@dimen/ball_height"
+            android:layout_marginRight="@dimen/ball_margin_right"
+            android:background="@drawable/custom_ball"
+            android:gravity="center"
+            android:text="10"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/view_result"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginBottom="@dimen/xxhdpi_8dp"
+        android:layout_marginTop="@dimen/xxhdpi_8dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Giá trị giải thưởng ước tính kỳ tới"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/values_prize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="12,000,000,000 đồng"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Đếm ngược"
+        android:textColor="@color/textSecondary"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/custom_text_time"
+                android:gravity="center"
+                android:text="00"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ngày"
+                android:textSize="8sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/hour"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/custom_text_time"
+                android:gravity="center"
+                android:text="00"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giờ"
+                android:textSize="8sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/minute"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/custom_text_time"
+                android:gravity="center"
+                android:text="00"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phút"
+                android:textSize="8sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/second"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/custom_text_time"
+                android:gravity="center"
+                android:text="00"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giây"
+                android:textSize="8sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/xxhdpi_8dp"
+        android:background="@color/colorPrimary"
+        android:text="Các lần quay trước" />
+
+</LinearLayout>

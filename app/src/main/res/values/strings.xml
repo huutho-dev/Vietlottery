@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">VietLottery</string>
+
+    <!--title tab-->
+    <string name="tab_mega">Mega 6/45</string>
+    <string name="tab_max">Max 4D</string>
+
+    <!--title page-->
+    <string name="title_lottery_mega">Kết quả trúng thưởng Mega 6/45</string>
+    <string name="luckyDay">Ngày quay thưởng</string>
+    <string name="result">Kết quả</string>
+</resources>

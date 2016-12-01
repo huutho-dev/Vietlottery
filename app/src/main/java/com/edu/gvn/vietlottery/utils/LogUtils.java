@@ -1,0 +1,35 @@
+package com.edu.gvn.vietlottery.utils;
+
+import android.util.Log;
+
+import com.edu.gvn.vietlottery.Config;
+
+/**
+ * Created by hnc on 29/11/2016.
+ */
+
+public class LogUtils {
+    public static void v(String tag, String msg) {
+        if (Config.DEBUG) {
+            Log.v(tag, msg);
+        }
+    }
+
+    public static void e(String tag, String msg) {
+        if (Config.DEBUG) {
+            Log.e(tag, msg);
+        }
+    }
+
+    public static void d(String tag, String msg) {
+        if (Config.DEBUG) {
+            Log.d(tag, msg);
+        }
+    }
+
+    public static void i(String tag, String msg) {
+        if (Config.DEBUG) {
+            Log.i(tag, msg);
+        }
+    }
+}
