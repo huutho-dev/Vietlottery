@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.edu.gvn.vietlottery.R;
-import com.edu.gvn.vietlottery.entity.sub.Mega;
+import com.edu.gvn.vietlottery.entity.sub.Mega645Prize;
 
 import java.util.ArrayList;
 
@@ -19,9 +19,9 @@ import java.util.ArrayList;
 
 public class Mega645CurrentAdapter extends RecyclerView.Adapter<Mega645CurrentAdapter.ViewHolder> {
     private Context context;
-    private ArrayList<Mega> datas;
+    private ArrayList<Mega645Prize> datas;
 
-    public Mega645CurrentAdapter(Context context, ArrayList<Mega> datas) {
+    public Mega645CurrentAdapter(Context context, ArrayList<Mega645Prize> datas) {
         this.context = context;
         this.datas = datas;
     }

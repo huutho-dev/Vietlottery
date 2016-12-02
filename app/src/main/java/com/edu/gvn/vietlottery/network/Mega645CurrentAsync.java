@@ -2,9 +2,10 @@ package com.edu.gvn.vietlottery.network;
 
 import android.os.AsyncTask;
 
+import com.edu.gvn.vietlottery.Config;
 import com.edu.gvn.vietlottery.entity.Mega645Current;
 import com.edu.gvn.vietlottery.entity.Mega645Previous;
-import com.edu.gvn.vietlottery.entity.sub.Mega;
+import com.edu.gvn.vietlottery.entity.sub.Mega645Prize;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -25,7 +26,7 @@ public class Mega645CurrentAsync extends AsyncTask<String, Void, Mega645Current>
     private static final String GET_THOI_GIAN_QUAY_THUONG = "div#result-games > div.box-result-detail > p";
     private static final String GET_SO_MAY_MAN = "ul.result-number > li";
     private static final String GET_TABLE = "div.result.clearfix.table-responsive > table.table.table-striped";
-    private static final String GET_SO_TIEN_JACKPOT = "tbody > tr > td";
+    private static final String GET_SO_TIEN_TRUNG_THUONG = "tbody > tr > td";
     private static final String GET_HEADER_TABLE = "thead > tr > th";
     private static final String GET_CONTENT_TABLE = "tbody > tr";
 
@@ -43,22 +44,38 @@ public class Mega645CurrentAsync extends AsyncTask<String, Void, Mega645Current>
     protected Mega645Current doInBackground(String... strings) {
 
         Mega645Current mega645Current;
-
         String giaTriUocTinh;
         String currentTime = null, endTime = null;
-        ArrayList<Mega> megas = new ArrayList<>();
+
+        ArrayList<Mega645Prize> mega645Prizes = new ArrayList<>();
         Mega645Previous mega645Previous;
 
         try {
-            Document document = Jsoup.connect(strings[0]).get();
+
+            String timeScrip = "";
+
+            Document document = Jsoup
+                    .connect(strings[0])
+                    .timeout(Config.REQUEST_TIME_OUT)
+                    .get();
+
             Element root = document.select(TAB_CONTENT_MEGA_645).first();
 
             giaTriUocTinh = root.select(GET_GIA_TRI_UOC_TINH).text();
-            String timeScrip = root.select("script").html();
+            timeScrip = root.select("script").html();
 
-//            $(function() {
-//                countDownTimer("mega-6-45-countdowntimer", "11/30/2016 4:50:28 PM", "11/30/2016 5:45:00 PM", regexpReplaceWith);
-//            });
+            if (timeScrip.equals("")) {
+                timeScrip = " $(function() {\n" +
+                        "                             countDownTimer(\"mega-6-45-countdowntimer\", \"11/30/2016 4:50:28 PM\", \"11/30/2016 5:45:00 PM\", regexpReplaceWith);\n" +
+                        "                        });";
+            }
+
+            /**
+             * $(function() {
+             countDownTimer("mega-6-45-countdowntimer", "11/30/2016 4:50:28 PM", "11/30/2016 5:45:00 PM", regexpReplaceWith);
+             });
+             */
+
 
             int firstMark = timeScrip.indexOf("\"");
             int secondMark = timeScrip.indexOf("\"", firstMark + 1);
@@ -67,22 +84,24 @@ public class Mega645CurrentAsync extends AsyncTask<String, Void, Mega645Current>
             int fifthMark = timeScrip.indexOf("\"", fourthMark + 1);
             int sixth = timeScrip.indexOf("\"", fifthMark + 1);
 
+
             currentTime = timeScrip.substring(thirdMark + 1, fourthMark);
             endTime = timeScrip.substring(fifthMark + 1, sixth);
 
-            String thoiGianQuayThuong = root.select(GET_THOI_GIAN_QUAY_THUONG).first().text(); // có dạng : Kỳ quay thưởng #00057 | Ngày quay thưởng 27/11/2016
-            int indexDash = thoiGianQuayThuong.indexOf("|");
-            String kyQuayThuong = thoiGianQuayThuong.substring(indexDash - 7, indexDash).trim();
-            String ngayQuayThuong = thoiGianQuayThuong.substring(thoiGianQuayThuong.length() - 10).trim();
-            String soMayMan = root.select(GET_SO_MAY_MAN).text().trim();
 
+            String thoiGianQuayThuong = root.select(GET_THOI_GIAN_QUAY_THUONG).first().text();
+            int indexDash = thoiGianQuayThuong.indexOf("|");
+            String kyQuayThuong = thoiGianQuayThuong.substring(0, indexDash).trim();
+            String ngayQuayThuong = thoiGianQuayThuong.substring(indexDash + 1);
+
+            String soTrungThuong = root.select(GET_SO_MAY_MAN).text().trim();
             // Có 2 table : table(0) : chứa giá tri jackpot, table(1) chứa data giải thưởng
 
-            String soTienJackpot = root.select(GET_TABLE).get(0).select(GET_SO_TIEN_JACKPOT).text();
-            megas.add(getHeaderTable(root.select(GET_TABLE).get(1)));
-            megas.addAll(getContentTable(root.select(GET_TABLE).get(1)));
+            String soTienTrungThuong = root.select(GET_TABLE).get(0).select(GET_SO_TIEN_TRUNG_THUONG).text();
+            mega645Prizes.add(getHeaderTable(root.select(GET_TABLE).get(1)));
+            mega645Prizes.addAll(getContentTable(root.select(GET_TABLE).get(1)));
 
-            mega645Previous = new Mega645Previous(kyQuayThuong, ngayQuayThuong, soMayMan, soTienJackpot, megas);
+            mega645Previous = new Mega645Previous(kyQuayThuong, ngayQuayThuong, soTrungThuong, soTienTrungThuong, mega645Prizes);
             mega645Current = new Mega645Current(giaTriUocTinh, currentTime, endTime, mega645Previous);
             return mega645Current;
         } catch (IOException e) {
@@ -97,7 +116,7 @@ public class Mega645CurrentAsync extends AsyncTask<String, Void, Mega645Current>
         callback.callBack(mega645Current);
     }
 
-    private Mega getHeaderTable(Element table) {
+    private Mega645Prize getHeaderTable(Element table) {
         String title_GiaiThuong;
         String title_TrungKhop;
         String title_SoLuongGiai;
@@ -116,11 +135,11 @@ public class Mega645CurrentAsync extends AsyncTask<String, Void, Mega645Current>
             title_GiaTriGiai = "Giá trị giải";
         }
 
-        return new Mega(title_GiaiThuong, title_TrungKhop, title_SoLuongGiai, title_GiaTriGiai);
+        return new Mega645Prize(title_GiaiThuong, title_TrungKhop, title_SoLuongGiai, title_GiaTriGiai);
     }
 
-    private ArrayList<Mega> getContentTable(Element table) {
-        ArrayList<Mega> content = new ArrayList<>();
+    private ArrayList<Mega645Prize> getContentTable(Element table) {
+        ArrayList<Mega645Prize> content = new ArrayList<>();
 
         Elements rows = table.select(GET_CONTENT_TABLE);
         int numberRow = rows.size();
@@ -131,7 +150,7 @@ public class Mega645CurrentAsync extends AsyncTask<String, Void, Mega645Current>
             String soLuongGiai = oneRow.get(2).text().trim();
             String giaTriGiaiThuong = oneRow.get(3).text().trim();
 
-            content.add(new Mega(tenGiaiThuong, trungKhop, soLuongGiai, giaTriGiaiThuong));
+            content.add(new Mega645Prize(tenGiaiThuong, trungKhop, soLuongGiai, giaTriGiaiThuong));
         }
         return content;
     }

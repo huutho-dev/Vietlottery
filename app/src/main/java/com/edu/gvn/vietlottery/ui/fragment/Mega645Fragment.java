@@ -18,7 +18,7 @@ import com.edu.gvn.vietlottery.Config;
 import com.edu.gvn.vietlottery.R;
 import com.edu.gvn.vietlottery.adapter.Mega645CurrentAdapter;
 import com.edu.gvn.vietlottery.entity.Mega645Current;
-import com.edu.gvn.vietlottery.entity.sub.Mega;
+import com.edu.gvn.vietlottery.entity.sub.Mega645Prize;
 import com.edu.gvn.vietlottery.network.Mega645CurrentAsync;
 import com.edu.gvn.vietlottery.ui.activity.ListPreviousMega645Activity;
 import com.edu.gvn.vietlottery.utils.DateTimeUtils;
@@ -39,7 +39,7 @@ public class Mega645Fragment extends Fragment implements Mega645CurrentAsync.Meg
     private RecyclerView viewResult;
     private RecyclerView.LayoutManager linearManager;
     private Mega645CurrentAdapter mAdapter;
-    private ArrayList<Mega> datas;
+    private ArrayList<Mega645Prize> datas;
 
     CountDownTimer mCountDownTimer;
 
@@ -106,7 +106,7 @@ public class Mega645Fragment extends Fragment implements Mega645CurrentAsync.Meg
 
 
         datas.clear();
-        datas.addAll(current.mega645Previous.megas);
+        datas.addAll(current.mega645Previous.mega645Prizes);
         mAdapter.notifyDataSetChanged();
 
         DateTimeUtils dateTimeUtils = new DateTimeUtils();
@@ -146,13 +146,25 @@ public class Mega645Fragment extends Fragment implements Mega645CurrentAsync.Meg
 
                 time.append(DateUtils.formatElapsedTime(Math.round(millisUntilFinished / 1000d)));
 
+                ngay.setText("00");
+                gio.setText("00");
+                phut.setText("00");
+                giay.setText("00");
 
                 String[] remain = time.toString().split(":");
-                ngay.setText(remain[0]);
-                gio.setText(remain[1]);
-                phut.setText(remain[2]);
-                giay.setText(remain[3]);
-
+                if (remain.length == 4) {
+                    ngay.setText(remain[0]);
+                    gio.setText(remain[1]);
+                    phut.setText(remain[2]);
+                    giay.setText(remain[3]);
+                } else if (remain.length == 3) {
+                    gio.setText(remain[0]);
+                    phut.setText(remain[1]);
+                    giay.setText(remain[2]);
+                } else {
+                    phut.setText(remain[0]);
+                    giay.setText(remain[1]);
+                }
             }
         }.start();
     }
@@ -161,7 +173,7 @@ public class Mega645Fragment extends Fragment implements Mega645CurrentAsync.Meg
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_previous) {
-            getActivity().startActivity(new Intent(getActivity(),ListPreviousMega645Activity.class));
+            getActivity().startActivity(new Intent(getActivity(), ListPreviousMega645Activity.class));
         }
     }
 }

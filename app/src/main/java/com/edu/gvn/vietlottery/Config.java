@@ -5,9 +5,8 @@ package com.edu.gvn.vietlottery;
  */
 
 public class Config {
-
     public static final Boolean DEBUG = true;
-
+    public static final int REQUEST_TIME_OUT = 20000;
 
     private static final String URL = "http://vietlott.vn/";
     public static final String VIETLOTT_HOME = URL + "vi/home/";

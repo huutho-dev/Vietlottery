@@ -1,11 +1,12 @@
 package com.edu.gvn.vietlottery.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.edu.gvn.vietlottery.Config;
@@ -14,8 +15,6 @@ import com.edu.gvn.vietlottery.adapter.Mega645ListPreviousAdapter;
 import com.edu.gvn.vietlottery.entity.MegaListPrevious;
 import com.edu.gvn.vietlottery.entity.RecyclerItemOnClickListener;
 import com.edu.gvn.vietlottery.network.MegaListPreviousAsync;
-import com.edu.gvn.vietlottery.ui.fragment.Mega645Detail;
-import com.edu.gvn.vietlottery.utils.LogUtils;
 
 import java.util.ArrayList;
 
@@ -43,6 +42,9 @@ public class ListPreviousMega645Activity extends AppCompatActivity implements Re
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_previous_mega);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Các lần quay trước");
+
         mDatas = new ArrayList<>();
         linearLayoutManager = new LinearLayoutManager(this);
         mAdapter = new Mega645ListPreviousAdapter(mDatas, this);
@@ -56,18 +58,22 @@ public class ListPreviousMega645Activity extends AppCompatActivity implements Re
 
     @Override
     public void onItemClick(View view, int position) {
-        LogUtils.v("huutho","click");
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.main_layout, Mega645Detail.newInstance(mDatas.get(position)));
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        ft.addToBackStack(null);
-        ft.commit();
+
+        Intent intent = new Intent(this,Mega645DetailActivity.class);
+        intent.putExtra(Mega645DetailActivity.BUNDLE_MEGA,mDatas.get(position));
+        startActivity(intent);
+
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) onBackPressed();
+        return true ;
+    }
 
-    /*
-        Xử lý scroll RecyclerView
-        Nếu là view cuối cùng thì lấy thêm data ở page mới
+    /**
+     * Xử lý scroll RecyclerView
+     * Nếu là view cuối cùng thì lấy thêm data ở page mới
      */
     private void scrollListener() {
         listPrevious.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -97,8 +103,9 @@ public class ListPreviousMega645Activity extends AppCompatActivity implements Re
         });
     }
 
-    /*
-    Phương thức lấy data từ VietLott
+
+    /**
+     * Phương thức lấy data từ VietLott
      */
     private void retriveData() {
         MegaListPreviousAsync request = new MegaListPreviousAsync(new MegaListPreviousAsync.MegaListPreviousAsyncCallback() {

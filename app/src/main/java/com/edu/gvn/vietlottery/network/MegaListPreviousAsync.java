@@ -2,6 +2,7 @@ package com.edu.gvn.vietlottery.network;
 
 import android.os.AsyncTask;
 
+import com.edu.gvn.vietlottery.Config;
 import com.edu.gvn.vietlottery.entity.MegaListPrevious;
 
 import org.jsoup.Jsoup;
@@ -30,7 +31,11 @@ public class MegaListPreviousAsync extends AsyncTask<String, Void, ArrayList<Meg
     protected ArrayList<MegaListPrevious> doInBackground(String... strings) {
         ArrayList<MegaListPrevious> datas = new ArrayList<>();
         try {
-            Document document = Jsoup.connect(strings[0]).get();
+            Document document = Jsoup
+                    .connect(strings[0])
+                    .timeout(Config.REQUEST_TIME_OUT)
+                    .get();
+
             Elements root = document.select(GET_LIST_PREVIOUS);
 
             int listSize = root.size();

@@ -1,120 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fragment_mega645"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="@dimen/title_padding"
-        android:text="@string/title_lottery_mega"
-        android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/title_text_size"
-        android:textStyle="bold" />
-
     <LinearLayout
+        android:id="@+id/fragment_mega645"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/txt_time_number"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:gravity="center"
-            android:text="Kỳ 00045"
-            android:textColor="@color/textPrimary"
+            android:padding="@dimen/title_padding"
+            android:text="@string/title_lottery_mega"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/title_text_size"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/txt_time_date"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:gravity="center"
-            android:text="20/11/2016"
-            android:textColor="@color/textPrimary"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txt_time_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Kỳ 00045"
+                android:textColor="@color/textPrimary"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_time_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="20/11/2016"
+                android:textColor="@color/textPrimary"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txt_ball_1"
+                style="@style/TextBallMega"
+                android:background="@drawable/custom_ball_red" />
+
+            <TextView
+                android:id="@+id/txt_ball_2"
+                style="@style/TextBallMega"
+                android:background="@drawable/custom_ball_green" />
+
+            <TextView
+                android:id="@+id/txt_ball_3"
+                style="@style/TextBallMega"
+                android:background="@drawable/custom_ball_green" />
+
+            <TextView
+                android:id="@+id/txt_ball_4"
+                style="@style/TextBallMega"
+                android:background="@drawable/custom_ball_green" />
+
+            <TextView
+                android:id="@+id/txt_ball_5"
+                style="@style/TextBallMega"
+                android:background="@drawable/custom_ball_green" />
+
+            <TextView
+                android:id="@+id/txt_ball_6"
+                style="@style/TextBallMega"
+                android:background="@drawable/custom_ball_yellow" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/view_result"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginBottom="@dimen/xxhdpi_8dp"
+            android:layout_marginTop="@dimen/xxhdpi_8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Giá trị giải thưởng ước tính kỳ tới"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/values_prize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="12,000,000,000 đồng"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
             android:textStyle="bold" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:gravity="center"
-        android:orientation="horizontal">
+        <include layout="@layout/time_box" />
 
-        <TextView
-            android:id="@+id/txt_ball_1"
-            style="@style/TextBallMega"
-            android:background="@drawable/custom_ball" />
-
-        <TextView
-            android:id="@+id/txt_ball_2"
-            style="@style/TextBallMega"
-            android:background="@drawable/custom_ball" />
-
-        <TextView
-            android:id="@+id/txt_ball_3"
-            style="@style/TextBallMega"
-            android:background="@drawable/custom_ball" />
-
-        <TextView
-            android:id="@+id/txt_ball_4"
-            style="@style/TextBallMega"
-            android:background="@drawable/custom_ball" />
-
-        <TextView
-            android:id="@+id/txt_ball_5"
-            style="@style/TextBallMega"
-            android:background="@drawable/custom_ball" />
-
-        <TextView
-            android:id="@+id/txt_ball_6"
-            style="@style/TextBallMega"
-            android:background="@drawable/custom_ball" />
+        <Button
+            android:id="@+id/btn_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/xxhdpi_8dp"
+            android:background="@drawable/custom_button"
+            android:text="Các lần quay trước" />
 
     </LinearLayout>
+</ScrollView>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/view_result"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginBottom="@dimen/xxhdpi_8dp"
-        android:layout_marginTop="@dimen/xxhdpi_8dp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Giá trị giải thưởng ước tính kỳ tới"
-        android:textColor="@color/colorPrimary"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/values_prize"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="12,000,000,000 đồng"
-        android:textColor="@color/colorPrimary"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-
-    <include layout="@layout/time_box" />
-
-    <Button
-        android:id="@+id/btn_previous"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/xxhdpi_8dp"
-        android:background="@color/colorPrimary"
-        android:text="Các lần quay trước" />
-
-</LinearLayout>
