@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.edu.gvn.vietlottery.R;
 import com.edu.gvn.vietlottery.entity.MegaListPrevious;
+import com.edu.gvn.vietlottery.entity.RecyclerItemOnClickListener;
 
 import java.util.ArrayList;
 
@@ -21,9 +22,10 @@ public class Mega645ListPreviousAdapter extends RecyclerView.Adapter<RecyclerVie
     private final int VIEW_LOAD = 1;
 
     private ArrayList<MegaListPrevious> datas;
-
-    public Mega645ListPreviousAdapter(ArrayList<MegaListPrevious> datas) {
+    private RecyclerItemOnClickListener itemOnClickListener ;
+    public Mega645ListPreviousAdapter(ArrayList<MegaListPrevious> datas,RecyclerItemOnClickListener itemOnClickListener) {
         this.datas = datas;
+        this.itemOnClickListener = itemOnClickListener;
     }
 
 
@@ -40,10 +42,18 @@ public class Mega645ListPreviousAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof ListPreviousViewHolder) {
             ((ListPreviousViewHolder) holder).date.setText(datas.get(position).date);
             ((ListPreviousViewHolder) holder).result.setText(datas.get(position).result);
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    itemOnClickListener.onItemClick(view,position);
+                }
+            });
+
         } else if (holder instanceof LoadingViewHolder) {
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
             loadingViewHolder.progressBar.setIndeterminate(true);

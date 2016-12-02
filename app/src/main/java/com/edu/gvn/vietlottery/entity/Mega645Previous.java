@@ -8,7 +8,7 @@ import java.util.List;
  * Created by hnc on 29/11/2016.
  */
 
-public class Mega645Previous {
+public class Mega645Previous extends BaseEntity {
 
     public String kyQuayThuong;
     public String ngayQuayThuong;

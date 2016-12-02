@@ -1,6 +1,8 @@
 package com.edu.gvn.vietlottery.entity.sub;
 
-public class Mega {
+import com.edu.gvn.vietlottery.entity.BaseEntity;
+
+public class Mega extends BaseEntity {
         public String tenGiaiThuong;
         public String trungKhop;
         public String soLuongGiai;

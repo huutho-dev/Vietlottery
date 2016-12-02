@@ -4,7 +4,7 @@ package com.edu.gvn.vietlottery.entity;
  * Created by hnc on 30/11/2016.
  */
 
-public class MegaListPrevious {
+public class MegaListPrevious extends BaseEntity {
     public String link;
     public String date ;
     public String result ;

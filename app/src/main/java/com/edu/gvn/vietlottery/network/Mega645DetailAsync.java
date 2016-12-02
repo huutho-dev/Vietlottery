@@ -45,10 +45,10 @@ public class Mega645DetailAsync extends AsyncTask<String, Void, Mega645Previous>
             Document document = Jsoup.connect(strings[0]).get();
             Element root = document.select(NEWS_PAGE).first();
 
-            String dateTime = root.select(GET_DATE_TIME_MEGA_46_5).text();
-            int indexDash = dateTime.indexOf("|");
-            String kyQuayThuong = dateTime.substring(0, indexDash).trim();
-            String ngayQuayThuong = dateTime.substring(indexDash + 1).trim();
+            String thoiGianQuayThuong = root.select(GET_DATE_TIME_MEGA_46_5).text();
+            int indexDash = thoiGianQuayThuong.indexOf("|");
+            String kyQuayThuong = thoiGianQuayThuong.substring(indexDash - 7, indexDash).trim();
+            String ngayQuayThuong = thoiGianQuayThuong.substring(thoiGianQuayThuong.length() - 10).trim();
             String soTienJackpot = root.select(GET_SO_TIEN_GIAI_JACKPOT).text();
 
             Element table = root.select(GET_TABLE_GIAI_THUONG).first();
@@ -93,7 +93,7 @@ public class Mega645DetailAsync extends AsyncTask<String, Void, Mega645Previous>
         for (int i = 0; i < sizeMega; i++) {
             Elements td = mega.get(i).select("td");
             // các dòng giá trị của bảng  :
-            String content_giaiThuong = td.get(0).select("a").attr("href");             // Jackpot
+            String content_giaiThuong = td.get(0).select("a").text();                   // Jackpot
             String content_trungKhop = td.get(1).text();                                // Trùng 6 số
             String content_soLuongGiai = td.get(2).text();                              // 1
             String content_giaTriGiai = td.get(3).select("span").text();                // 54.886.916.500

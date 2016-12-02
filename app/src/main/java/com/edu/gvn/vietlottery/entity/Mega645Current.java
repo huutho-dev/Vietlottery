@@ -4,7 +4,7 @@ package com.edu.gvn.vietlottery.entity;
  * Created by hnc on 29/11/2016.
  */
 
-public class Mega645Current {
+public class Mega645Current extends BaseEntity {
     public String giaTriUocTinh ;
     public String curentTime, endTime ;
     public Mega645Previous mega645Previous ;

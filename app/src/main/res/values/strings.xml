@@ -9,4 +9,18 @@
     <string name="title_lottery_mega">Kết quả trúng thưởng Mega 6/45</string>
     <string name="luckyDay">Ngày quay thưởng</string>
     <string name="result">Kết quả</string>
+    <string name="title_lottery_max4d">Kết quả trúng thưởng Max 4D</string>
+
+
+
+    <string name="giai_thuong">Giải thưởng</string>
+    <string name="ket_qua">Kết quả</string>
+    <string name="so_luong">Số lượng</string>
+    <string name="gia_tri">Giá trị (đồng)</string>
+    <string name="giai_nhat">Giải nhất</string>
+    <string name="giai_nhi">Giải nhì</string>
+    <string name="giai_ba">Giải ba</string>
+    <string name="giai_khuyen_khich_1">Khuyến khích 1</string>
+    <string name="giai_khuyen_khich_2">Khuyến khích 2</string>
+
 </resources>

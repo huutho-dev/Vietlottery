@@ -1,5 +1,6 @@
 package com.edu.gvn.vietlottery.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -18,14 +19,14 @@ import com.edu.gvn.vietlottery.R;
 import com.edu.gvn.vietlottery.adapter.Mega645CurrentAdapter;
 import com.edu.gvn.vietlottery.entity.Mega645Current;
 import com.edu.gvn.vietlottery.entity.sub.Mega;
-import com.edu.gvn.vietlottery.network.Mega645Async;
+import com.edu.gvn.vietlottery.network.Mega645CurrentAsync;
+import com.edu.gvn.vietlottery.ui.activity.ListPreviousMega645Activity;
 import com.edu.gvn.vietlottery.utils.DateTimeUtils;
-import com.edu.gvn.vietlottery.utils.LogUtils;
 
 import java.util.ArrayList;
 
 
-public class Mega645Fragment extends Fragment implements Mega645Async.Mega645AsyncCallback, View.OnClickListener {
+public class Mega645Fragment extends Fragment implements Mega645CurrentAsync.Mega645AsyncCallback, View.OnClickListener {
 
     private final String TAG = Mega645Fragment.class.getSimpleName();
 
@@ -46,7 +47,7 @@ public class Mega645Fragment extends Fragment implements Mega645Async.Mega645Asy
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Mega645Async mega645Async = new Mega645Async(this);
+        Mega645CurrentAsync mega645Async = new Mega645CurrentAsync(this);
         mega645Async.execute(Config.VIETLOTT_HOME);
     }
 
@@ -90,7 +91,6 @@ public class Mega645Fragment extends Fragment implements Mega645Async.Mega645Asy
     @Override
     public void callBack(Mega645Current current) {
         String[] arrLuckyNumber = current.mega645Previous.soMayMan.split(" ");
-        LogUtils.i(TAG, current.toString());
 
         kyQuayThuong.setText(current.mega645Previous.kyQuayThuong);
         ngayQuayThuong.setText(current.mega645Previous.ngayQuayThuong);
@@ -161,7 +161,7 @@ public class Mega645Fragment extends Fragment implements Mega645Async.Mega645Asy
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_previous) {
-
+            getActivity().startActivity(new Intent(getActivity(),ListPreviousMega645Activity.class));
         }
     }
 }

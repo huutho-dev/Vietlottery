@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import com.edu.gvn.vietlottery.entity.Mega645Current;
 import com.edu.gvn.vietlottery.entity.Mega645Previous;
 import com.edu.gvn.vietlottery.entity.sub.Mega;
-import com.edu.gvn.vietlottery.utils.LogUtils;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
  * Created by hnc on 29/11/2016.
  */
 
-public class Mega645Async extends AsyncTask<String, Void, Mega645Current> {
+public class Mega645CurrentAsync extends AsyncTask<String, Void, Mega645Current> {
 
     private static final String TAB_CONTENT_MEGA_645 = "div.tab-content > div#mega-6-45";
     private static final String GET_GIA_TRI_UOC_TINH = "div.jackpot-win > h2";
@@ -36,7 +35,7 @@ public class Mega645Async extends AsyncTask<String, Void, Mega645Current> {
 
     private Mega645AsyncCallback callback;
 
-    public Mega645Async(Mega645AsyncCallback callback) {
+    public Mega645CurrentAsync(Mega645AsyncCallback callback) {
         this.callback = callback;
     }
 
@@ -68,13 +67,8 @@ public class Mega645Async extends AsyncTask<String, Void, Mega645Current> {
             int fifthMark = timeScrip.indexOf("\"", fourthMark + 1);
             int sixth = timeScrip.indexOf("\"", fifthMark + 1);
 
-            LogUtils.v("huutho2", firstMark + "-" + secondMark + "-" + thirdMark + "-" + fourthMark + "-" + fifthMark + "-" + sixth);
-
             currentTime = timeScrip.substring(thirdMark + 1, fourthMark);
             endTime = timeScrip.substring(fifthMark + 1, sixth);
-
-            LogUtils.v("huutho2", currentTime + "\n" + endTime);
-
 
             String thoiGianQuayThuong = root.select(GET_THOI_GIAN_QUAY_THUONG).first().text(); // có dạng : Kỳ quay thưởng #00057 | Ngày quay thưởng 27/11/2016
             int indexDash = thoiGianQuayThuong.indexOf("|");
@@ -135,7 +129,8 @@ public class Mega645Async extends AsyncTask<String, Void, Mega645Current> {
             String tenGiaiThuong = oneRow.get(0).text().trim();
             String trungKhop = oneRow.get(1).select("i").size() + "";
             String soLuongGiai = oneRow.get(2).text().trim();
-            String giaTriGiaiThuong = oneRow.get(2).text().trim();
+            String giaTriGiaiThuong = oneRow.get(3).text().trim();
+
             content.add(new Mega(tenGiaiThuong, trungKhop, soLuongGiai, giaTriGiaiThuong));
         }
         return content;
