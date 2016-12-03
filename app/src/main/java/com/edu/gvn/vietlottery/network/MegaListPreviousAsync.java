@@ -17,10 +17,6 @@ import java.util.ArrayList;
 public class MegaListPreviousAsync extends AsyncTask<String, Void, ArrayList<MegaListPrevious>> {
     private static final String GET_LIST_PREVIOUS = "div.result.clearfix.table-responsive > table.table.table-striped > tbody > tr";
 
-    public interface MegaListPreviousAsyncCallback {
-        void callBack(ArrayList<MegaListPrevious> datas);
-    }
-
     private MegaListPreviousAsyncCallback callBack;
 
     public MegaListPreviousAsync(MegaListPreviousAsyncCallback callBack) {
@@ -31,15 +27,9 @@ public class MegaListPreviousAsync extends AsyncTask<String, Void, ArrayList<Meg
     protected ArrayList<MegaListPrevious> doInBackground(String... strings) {
         ArrayList<MegaListPrevious> datas = new ArrayList<>();
         try {
-            Document document = Jsoup
-                    .connect(strings[0])
-                    .timeout(Config.REQUEST_TIME_OUT)
-                    .get();
-
+            Document document = Jsoup.connect(strings[0]).timeout(Config.REQUEST_TIME_OUT).get();
             Elements root = document.select(GET_LIST_PREVIOUS);
-
             int listSize = root.size();
-
             for (int i = 0; i < listSize; i++) {
                 Element item = root.get(i);
                 String link = item.select("td").get(0).select("a").attr("href");
@@ -52,7 +42,6 @@ public class MegaListPreviousAsync extends AsyncTask<String, Void, ArrayList<Meg
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return datas;
     }
 
@@ -60,5 +49,9 @@ public class MegaListPreviousAsync extends AsyncTask<String, Void, ArrayList<Meg
     protected void onPostExecute(ArrayList<MegaListPrevious> megaListPreviouses) {
         super.onPostExecute(megaListPreviouses);
         callBack.callBack(megaListPreviouses);
+    }
+
+    public interface MegaListPreviousAsyncCallback {
+        void callBack(ArrayList<MegaListPrevious> datas);
     }
 }

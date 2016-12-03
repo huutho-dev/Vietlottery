@@ -53,12 +53,7 @@ public class Mega645CurrentAsync extends AsyncTask<String, Void, Mega645Current>
         try {
 
             String timeScrip = "";
-
-            Document document = Jsoup
-                    .connect(strings[0])
-                    .timeout(Config.REQUEST_TIME_OUT)
-                    .get();
-
+            Document document = Jsoup.connect(strings[0]).timeout(Config.REQUEST_TIME_OUT).get();
             Element root = document.select(TAB_CONTENT_MEGA_645).first();
 
             giaTriUocTinh = root.select(GET_GIA_TRI_UOC_TINH).text();
@@ -66,7 +61,7 @@ public class Mega645CurrentAsync extends AsyncTask<String, Void, Mega645Current>
 
             if (timeScrip.equals("")) {
                 timeScrip = " $(function() {\n" +
-                        "                             countDownTimer(\"mega-6-45-countdowntimer\", \"11/30/2016 4:50:28 PM\", \"11/30/2016 5:45:00 PM\", regexpReplaceWith);\n" +
+                        "                             countDownTimer(\"mega-6-45-countdowntimer\", \"11/30/2016 5:45:00 PM\", \"11/30/2016 5:45:00 PM\", regexpReplaceWith);\n" +
                         "                        });";
             }
 
@@ -84,19 +79,18 @@ public class Mega645CurrentAsync extends AsyncTask<String, Void, Mega645Current>
             int fifthMark = timeScrip.indexOf("\"", fourthMark + 1);
             int sixth = timeScrip.indexOf("\"", fifthMark + 1);
 
-
             currentTime = timeScrip.substring(thirdMark + 1, fourthMark);
             endTime = timeScrip.substring(fifthMark + 1, sixth);
 
-
             String thoiGianQuayThuong = root.select(GET_THOI_GIAN_QUAY_THUONG).first().text();
             int indexDash = thoiGianQuayThuong.indexOf("|");
-            String kyQuayThuong = thoiGianQuayThuong.substring(0, indexDash).trim();
-            String ngayQuayThuong = thoiGianQuayThuong.substring(indexDash + 1);
+            String kyQuayThuong = thoiGianQuayThuong.substring(0,3).trim() +" "+
+                    thoiGianQuayThuong.substring(indexDash-6, indexDash).trim();
+            String ngayQuayThuong = thoiGianQuayThuong.substring(thoiGianQuayThuong.length()-11).trim();
 
             String soTrungThuong = root.select(GET_SO_MAY_MAN).text().trim();
-            // Có 2 table : table(0) : chứa giá tri jackpot, table(1) chứa data giải thưởng
 
+            // Có 2 table : table(0) : chứa giá tri jackpot, table(1) chứa data giải thưởng
             String soTienTrungThuong = root.select(GET_TABLE).get(0).select(GET_SO_TIEN_TRUNG_THUONG).text();
             mega645Prizes.add(getHeaderTable(root.select(GET_TABLE).get(1)));
             mega645Prizes.addAll(getContentTable(root.select(GET_TABLE).get(1)));

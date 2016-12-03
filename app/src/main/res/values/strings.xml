@@ -23,4 +23,10 @@
     <string name="giai_khuyen_khich_1">Khuyến khích 1</string>
     <string name="giai_khuyen_khich_2">Khuyến khích 2</string>
 
+    <!--title activity-->
+    <string name="title_activity_list_previous_mega">Các lần quay trước Mega 6/45</string>
+    <string name="title_activity_detail_mega">Jackpot</string>
+    <string name="title_activity_list_previous_max">Các lần quay trước Max 4D</string>
+
+
 </resources>

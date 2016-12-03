@@ -2,8 +2,10 @@ package com.edu.gvn.vietlottery.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +16,8 @@ import com.edu.gvn.vietlottery.Config;
 import com.edu.gvn.vietlottery.R;
 import com.edu.gvn.vietlottery.entity.Max4DCurrent;
 import com.edu.gvn.vietlottery.network.Max4DCurrentAsync;
-import com.edu.gvn.vietlottery.ui.activity.ListPreviousMax4DActivity;
+import com.edu.gvn.vietlottery.ui.activity.PreviousMax4DActivity;
+import com.edu.gvn.vietlottery.utils.DateTimeUtils;
 import com.edu.gvn.vietlottery.utils.SequenceUtils;
 
 public class Max4DFragment extends Fragment implements Max4DCurrentAsync.Max4DCurrentAsyncCallback {
@@ -36,6 +39,7 @@ public class Max4DFragment extends Fragment implements Max4DCurrentAsync.Max4DCu
 
     private Button mButtonPrevious ;
 
+    CountDownTimer mCountDownTimer;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,7 +128,7 @@ public class Max4DFragment extends Fragment implements Max4DCurrentAsync.Max4DCu
         mButtonPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().startActivity(new Intent(getActivity(), ListPreviousMax4DActivity.class));
+                getActivity().startActivity(new Intent(getActivity(), PreviousMax4DActivity.class));
             }
         });
     }
@@ -194,6 +198,64 @@ public class Max4DFragment extends Fragment implements Max4DCurrentAsync.Max4DCu
         gio.setText("00");
         phut.setText("00");
         giay.setText("00");
+
+        DateTimeUtils dateTimeUtils = new DateTimeUtils();
+        String remain = dateTimeUtils.remainingTime(max4DCurrent.currentTime, max4DCurrent.endTime);
+        countTime(remain, ngay, gio, phut, giay);
+    }
+
+    private void countTime(String remain, final TextView ngay, final TextView gio, final TextView phut, final TextView giay) {
+        String[] myDateTime = remain.split("-");
+
+        long mInitialTime =
+                DateUtils.DAY_IN_MILLIS * Integer.parseInt(myDateTime[0]) +
+                        DateUtils.HOUR_IN_MILLIS * Integer.parseInt(myDateTime[1]) +
+                        DateUtils.MINUTE_IN_MILLIS * Integer.parseInt(myDateTime[2]) +
+                        DateUtils.SECOND_IN_MILLIS * Integer.parseInt(myDateTime[3]);
+
+        mCountDownTimer = new CountDownTimer(mInitialTime, 1000) {
+            StringBuilder time = new StringBuilder();
+
+            @Override
+            public void onFinish() {
+                //mTextView.setText("Times Up!");
+            }
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                time.setLength(0);
+
+                if (millisUntilFinished > DateUtils.DAY_IN_MILLIS) {
+                    long count = millisUntilFinished / DateUtils.DAY_IN_MILLIS;
+                    time.append(count).append(":");
+                    millisUntilFinished %= DateUtils.DAY_IN_MILLIS;
+                } else {
+                    time.append("00").append(":");
+                }
+
+                time.append(DateUtils.formatElapsedTime(Math.round(millisUntilFinished / 1000d)));
+
+                ngay.setText("00");
+                gio.setText("00");
+                phut.setText("00");
+                giay.setText("00");
+
+                String[] remain = time.toString().split(":");
+                if (remain.length == 4) {
+                    ngay.setText(remain[0]);
+                    gio.setText(remain[1]);
+                    phut.setText(remain[2]);
+                    giay.setText(remain[3]);
+                } else if (remain.length == 3) {
+                    gio.setText(remain[0]);
+                    phut.setText(remain[1]);
+                    giay.setText(remain[2]);
+                } else {
+                    phut.setText(remain[0]);
+                    giay.setText(remain[1]);
+                }
+            }
+        }.start();
     }
 
 }

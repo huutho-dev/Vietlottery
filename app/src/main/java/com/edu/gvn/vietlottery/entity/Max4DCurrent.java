@@ -7,14 +7,15 @@ import com.edu.gvn.vietlottery.entity.sub.Max4dPrize;
  */
 
 public class Max4DCurrent extends BaseEntity {
-    public Max4dPrize max4dPrize ;
+    public Max4dPrize max4dPrize;
     public String soLuongGiaiNhat, soLuongGiaiNhi, soLuongGiaiBa, soLuongGiaiKK1, soLuongGiaiKK2;
-    public String giaTriGiaiNhat,giaTriGiaiNhi, giaTriGiaiBa,giaTriGiaiKK1,giaTriGiaiKK2;
+    public String giaTriGiaiNhat, giaTriGiaiNhi, giaTriGiaiBa, giaTriGiaiKK1, giaTriGiaiKK2;
+    public String currentTime, endTime;
 
     public Max4DCurrent(Max4dPrize max4dPrize, String soLuongGiaiNhat, String soLuongGiaiNhi,
                         String soLuongGiaiBa, String soLuongGiaiKK1, String soLuongGiaiKK2,
                         String giaTriGiaiNhat, String giaTriGiaiNhi, String giaTriGiaiBa,
-                        String giaTriGiaiKK1, String giaTriGiaiKK2) {
+                        String giaTriGiaiKK1, String giaTriGiaiKK2, String currentTime, String endTime) {
 
         this.max4dPrize = max4dPrize;
         this.soLuongGiaiNhat = soLuongGiaiNhat;
@@ -27,5 +28,7 @@ public class Max4DCurrent extends BaseEntity {
         this.giaTriGiaiBa = giaTriGiaiBa;
         this.giaTriGiaiKK1 = giaTriGiaiKK1;
         this.giaTriGiaiKK2 = giaTriGiaiKK2;
+        this.currentTime = currentTime;
+        this.endTime = endTime;
     }
 }

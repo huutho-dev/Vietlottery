@@ -20,7 +20,7 @@ import com.edu.gvn.vietlottery.adapter.Mega645CurrentAdapter;
 import com.edu.gvn.vietlottery.entity.Mega645Current;
 import com.edu.gvn.vietlottery.entity.sub.Mega645Prize;
 import com.edu.gvn.vietlottery.network.Mega645CurrentAsync;
-import com.edu.gvn.vietlottery.ui.activity.ListPreviousMega645Activity;
+import com.edu.gvn.vietlottery.ui.activity.PreviousMega645Activity;
 import com.edu.gvn.vietlottery.utils.DateTimeUtils;
 
 import java.util.ArrayList;
@@ -173,7 +173,7 @@ public class Mega645Fragment extends Fragment implements Mega645CurrentAsync.Meg
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_previous) {
-            getActivity().startActivity(new Intent(getActivity(), ListPreviousMega645Activity.class));
+            getActivity().startActivity(new Intent(getActivity(), PreviousMega645Activity.class));
         }
     }
 }

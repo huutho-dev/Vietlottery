@@ -20,17 +20,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.ListPreviousMega645Activity"
+            android:name=".ui.activity.PreviousMega645Activity"
             android:theme="@style/AppTheme1" />
         <activity
-            android:name=".ui.activity.ListPreviousMax4DActivity"
+            android:name=".ui.activity.PreviousMax4DActivity"
             android:theme="@style/AppTheme1" />
         <activity
             android:name=".ui.activity.Mega645DetailActivity"
             android:theme="@style/AppTheme1" />
         <activity
             android:theme="@style/AppTheme1"
-            android:name=".ui.activity.ListPreviousMax4DActivity"/>
+            android:name=".ui.activity.PreviousMax4DActivity"/>
     </application>
 
 </manifest>

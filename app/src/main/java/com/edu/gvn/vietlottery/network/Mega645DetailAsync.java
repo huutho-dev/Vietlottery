@@ -43,17 +43,14 @@ public class Mega645DetailAsync extends AsyncTask<String, Void, Mega645Previous>
         Mega645Previous mega645Previous;
         ArrayList<Mega645Prize> mega645Prizes = new ArrayList<>();
         try {
-            Document document = Jsoup
-                    .connect(strings[0])
-                    .timeout(Config.REQUEST_TIME_OUT)
-                    .get();
-
+            Document document = Jsoup.connect(strings[0]).timeout(Config.REQUEST_TIME_OUT).get();
             Element root = document.select(NEWS_PAGE).first();
 
             String thoiGianQuayThuong = root.select(GET_DATE_TIME_MEGA_645).text();
             int indexDash = thoiGianQuayThuong.indexOf("|");
-            String kyQuayThuong = thoiGianQuayThuong.substring(0, indexDash).trim();
-            String ngayQuayThuong = thoiGianQuayThuong.substring(indexDash+1).trim();
+            String kyQuayThuong = thoiGianQuayThuong.substring(0,3).trim() +" "+
+                    thoiGianQuayThuong.substring(indexDash-6, indexDash).trim();
+            String ngayQuayThuong = thoiGianQuayThuong.substring(thoiGianQuayThuong.length()-11).trim();
             String soTienJackpot = root.select(GET_SO_TIEN_GIAI_JACKPOT).text();
 
             Element table = root.select(GET_TABLE_GIAI_THUONG).first();

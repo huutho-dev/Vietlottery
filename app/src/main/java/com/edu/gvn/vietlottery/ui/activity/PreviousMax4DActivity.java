@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 
 import com.edu.gvn.vietlottery.Config;
 import com.edu.gvn.vietlottery.R;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
  * Created by hnc on 02/12/2016.
  */
 
-public class ListPreviousMax4DActivity extends AppCompatActivity implements Max4dPreviousAsync.Max4dPreviousCallback {
+public class PreviousMax4DActivity extends AppCompatActivity implements Max4dPreviousAsync.Max4dPreviousCallback {
     private RecyclerView listMax4d;
     private Max4DListPreviousAdapter mAdapter;
     private RecyclerView.LayoutManager linearManager;
@@ -27,6 +28,10 @@ public class ListPreviousMax4DActivity extends AppCompatActivity implements Max4
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_previous_max);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(getResources().getString(R.string.title_activity_list_previous_max));
+
 
         linearManager = new LinearLayoutManager(this);
         mDatas = new ArrayList<>();
@@ -48,5 +53,13 @@ public class ListPreviousMax4DActivity extends AppCompatActivity implements Max4
             mDatas.addAll(datas);
             mAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home){
+            onBackPressed();
+        }
+        return true;
     }
 }

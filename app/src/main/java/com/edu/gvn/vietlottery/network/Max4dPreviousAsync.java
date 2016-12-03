@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 
 import com.edu.gvn.vietlottery.Config;
 import com.edu.gvn.vietlottery.entity.sub.Max4dPrize;
-import com.edu.gvn.vietlottery.utils.LogUtils;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -39,13 +38,10 @@ public class Max4dPreviousAsync extends AsyncTask<String, Void, ArrayList<Max4dP
 
         ArrayList<Max4dPrize> listPrize = new ArrayList<>();
         try {
-            Document document = Jsoup.connect(strings[0])
-                    .timeout(Config.REQUEST_TIME_OUT)
-                    .get();
-
+            Document document = Jsoup.connect(strings[0]).timeout(Config.REQUEST_TIME_OUT).get();
             Elements root = document.select(ROOT_TABLE);
             int itemSize = root.size();
-            LogUtils.v("huutho",itemSize +"");
+
             for (int i = 0; i < itemSize; i++) {
                 Element item = root.get(i);
 
@@ -65,15 +61,12 @@ public class Max4dPreviousAsync extends AsyncTask<String, Void, ArrayList<Max4dP
                 Max4dPrize max4dPrize = new Max4dPrize(kyQuayThuong,ngayQuayThuong,giaiNhat,
                         giaiNhi1,giaiNhi2,giaiBa1,giaiBa2,giaiBa3,giaiKK1,giaiKK2);
 
-                LogUtils.v("huutho",max4dPrize.toString());
-
                 listPrize.add(max4dPrize);
             }
             return listPrize;
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 

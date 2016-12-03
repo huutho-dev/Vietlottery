@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * Created by hnc on 30/11/2016.
  */
 
-public class ListPreviousMega645Activity extends AppCompatActivity implements RecyclerItemOnClickListener {
+public class PreviousMega645Activity extends AppCompatActivity implements RecyclerItemOnClickListener {
     private static final int PAGE_HAS = 3;
     private RecyclerView listPrevious;
     private Mega645ListPreviousAdapter mAdapter;
@@ -43,7 +43,7 @@ public class ListPreviousMega645Activity extends AppCompatActivity implements Re
         setContentView(R.layout.activity_list_previous_mega);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Các lần quay trước");
+        getSupportActionBar().setTitle(getResources().getString(R.string.title_activity_list_previous_mega));
 
         mDatas = new ArrayList<>();
         linearLayoutManager = new LinearLayoutManager(this);

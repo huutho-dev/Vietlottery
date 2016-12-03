@@ -40,16 +40,33 @@ public class Max4DCurrentAsync extends AsyncTask<String, Void, Max4DCurrent> {
         Max4dPrize max4dPrize = null;
         Max4DCurrent max4DCurrent = null;
         try {
-            Document document = Jsoup
-                    .connect(strings[0])
-                    .timeout(Config.REQUEST_TIME_OUT)
-                    .get();
+            Document document = Jsoup.connect(strings[0]).timeout(Config.REQUEST_TIME_OUT).get();
             Element root = document.select(ROOT_TAB_MAX_4D).first();
 
-            String thoiGianQuayThuong = root.select(GET_TIME_RESULT).get(0).text();    //Kỳ quay thưởng #00006 | Ngày quay thưởng 01/12/2016
+            String thoiGianQuayThuong = root.select(GET_TIME_RESULT).get(0).text().trim();    //Kỳ quay thưởng #00006 | Ngày quay thưởng 01/12/2016
             int indexDash = thoiGianQuayThuong.indexOf("|");
-            String kyQuayThuong = thoiGianQuayThuong.substring(0, indexDash).trim();
-            String ngayQuayThuong = thoiGianQuayThuong.substring(indexDash + 1).trim();
+            String kyQuayThuong = thoiGianQuayThuong.substring(0, 3).trim() + " " +
+                    thoiGianQuayThuong.substring(indexDash - 6, indexDash).trim();
+            String ngayQuayThuong = thoiGianQuayThuong.substring(thoiGianQuayThuong.length() - 11).trim();
+
+            String timeScrip = "";
+            timeScrip = root.select("script").html();
+            if (timeScrip.equals("")) {
+                timeScrip = " $(function() {\n" +
+                        "                             countDownTimer(\"mega-6-45-countdowntimer\", \"11/30/2016 5:45:00 PM\", \"11/30/2016 5:45:00 PM\", regexpReplaceWith);\n" +
+                        "                        });";
+            }
+
+            int firstMark = timeScrip.indexOf("\"");
+            int secondMark = timeScrip.indexOf("\"", firstMark + 1);
+            int thirdMark = timeScrip.indexOf("\"", secondMark + 1);
+            int fourthMark = timeScrip.indexOf("\"", thirdMark + 1);
+            int fifthMark = timeScrip.indexOf("\"", fourthMark + 1);
+            int sixth = timeScrip.indexOf("\"", fifthMark + 1);
+
+            String currentTime = timeScrip.substring(thirdMark + 1, fourthMark);
+            String endTime = timeScrip.substring(fifthMark + 1, sixth);
+
 
             String giaiNhat = root.select(GET_BOX_RESULT).select(GET_VALUE_BOX).select(GET_VALUE).get(0).text();
             String giaiNhi1 = root.select(GET_BOX_RESULT).select(GET_VALUE_BOX).select(GET_VALUE).get(1).text();
@@ -76,7 +93,7 @@ public class Max4DCurrentAsync extends AsyncTask<String, Void, Max4DCurrent> {
 
             max4DCurrent = new Max4DCurrent(max4dPrize, soLuongGiaiNhat, soLuongGiaiNhi,
                     soLuongGiaiBa, soLuongGiaiKK1, soLuongGiaiKK2,
-                    giaTriGiaiNhat, giaTriGiaiNhi, giaTriGiaiBa, giaTriGiaiKK1, giaTriGiaiKK2);
+                    giaTriGiaiNhat, giaTriGiaiNhi, giaTriGiaiBa, giaTriGiaiKK1, giaTriGiaiKK2, currentTime, endTime);
 
             return max4DCurrent;
         } catch (IOException e) {
