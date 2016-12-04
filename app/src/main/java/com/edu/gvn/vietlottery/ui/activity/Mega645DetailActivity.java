@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -19,13 +20,10 @@ import com.edu.gvn.vietlottery.utils.SequenceUtils;
 
 import java.util.ArrayList;
 
-/**
- * Created by HuuTho on 12/1/2016.
- */
-
 public class Mega645DetailActivity extends AppCompatActivity implements Mega645DetailAsync.Mega645AsyncCallback {
     public static final String BUNDLE_MEGA = "bundle.lucky";
 
+    private Toolbar toolbar ;
     private RecyclerView viewDetail;
     private TextView kyQuayThuong, ngayQuayThuong;
     private TextView so1, so2, so3, so4, so5, so6;
@@ -42,12 +40,13 @@ public class Mega645DetailActivity extends AppCompatActivity implements Mega645D
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_mega);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Jackpot");
+        getSupportActionBar().setTitle(getResources().getString(R.string.title_activity_detail_mega));
 
         detail = (MegaListPrevious) getIntent().getSerializableExtra(BUNDLE_MEGA);
-
-
         viewDetail = (RecyclerView) findViewById(R.id.view_detail_mega);
         kyQuayThuong = (TextView) findViewById(R.id.txt_time_number);
         ngayQuayThuong = (TextView) findViewById(R.id.txt_time_date);

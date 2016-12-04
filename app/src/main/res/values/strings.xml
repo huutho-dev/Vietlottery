@@ -27,6 +27,9 @@
     <string name="title_activity_list_previous_mega">Các lần quay trước Mega 6/45</string>
     <string name="title_activity_detail_mega">Jackpot</string>
     <string name="title_activity_list_previous_max">Các lần quay trước Max 4D</string>
+    <string name="time_up">Đã đến giờ quay thưởng</string>
+    <string name="turn_on_tv">Bật TV để xem quay số trúng thưởng</string>
+    <string name="content">Đang quay số trúng thưởng</string>
 
 
 </resources>

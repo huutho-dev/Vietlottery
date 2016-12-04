@@ -4,10 +4,6 @@ import android.util.Log;
 
 import com.edu.gvn.vietlottery.Config;
 
-/**
- * Created by hnc on 29/11/2016.
- */
-
 public class LogUtils {
     public static void v(String tag, String msg) {
         if (Config.DEBUG) {

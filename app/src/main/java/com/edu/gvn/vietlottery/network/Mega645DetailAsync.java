@@ -14,11 +14,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- * Created by hnc on 29/11/2016.
- */
-
-public class Mega645DetailAsync extends AsyncTask<String, Void, Mega645Previous> {
+public class    Mega645DetailAsync extends AsyncTask<String, Void, Mega645Previous> {
 
     private static final String NEWS_PAGE = "div.col-xs-12.col-md-10.news-page";
     private static final String GET_DATE_TIME_MEGA_645 = "div.box-result-detail > p.time-result > b";
@@ -40,25 +36,27 @@ public class Mega645DetailAsync extends AsyncTask<String, Void, Mega645Previous>
 
     @Override
     protected Mega645Previous doInBackground(String... strings) {
-        Mega645Previous mega645Previous;
+        Mega645Previous mega645Previous = null;
         ArrayList<Mega645Prize> mega645Prizes = new ArrayList<>();
         try {
             Document document = Jsoup.connect(strings[0]).timeout(Config.REQUEST_TIME_OUT).get();
             Element root = document.select(NEWS_PAGE).first();
 
-            String thoiGianQuayThuong = root.select(GET_DATE_TIME_MEGA_645).text();
-            int indexDash = thoiGianQuayThuong.indexOf("|");
-            String kyQuayThuong = thoiGianQuayThuong.substring(0,3).trim() +" "+
-                    thoiGianQuayThuong.substring(indexDash-6, indexDash).trim();
-            String ngayQuayThuong = thoiGianQuayThuong.substring(thoiGianQuayThuong.length()-11).trim();
-            String soTienJackpot = root.select(GET_SO_TIEN_GIAI_JACKPOT).text();
+            if (root != null){
+                String thoiGianQuayThuong = root.select(GET_DATE_TIME_MEGA_645).text();
+                int indexDash = thoiGianQuayThuong.indexOf("|");
+                String kyQuayThuong = thoiGianQuayThuong.substring(0,3).trim() +" "+
+                        thoiGianQuayThuong.substring(indexDash-6, indexDash).trim();
+                String ngayQuayThuong = thoiGianQuayThuong.substring(thoiGianQuayThuong.length()-11).trim();
+                String soTienJackpot = root.select(GET_SO_TIEN_GIAI_JACKPOT).text();
 
-            Element table = root.select(GET_TABLE_GIAI_THUONG).first();
+                Element table = root.select(GET_TABLE_GIAI_THUONG).first();
 
-            mega645Prizes.add(getHeadTable(table));
-            mega645Prizes.addAll(getContentTable(table));
+                mega645Prizes.add(getHeadTable(table));
+                mega645Prizes.addAll(getContentTable(table));
 
-            mega645Previous = new Mega645Previous(kyQuayThuong, ngayQuayThuong, "null", soTienJackpot, mega645Prizes);
+                mega645Previous = new Mega645Previous(kyQuayThuong, ngayQuayThuong, "null", soTienJackpot, mega645Prizes);
+            }
 
             return mega645Previous;
         } catch (IOException e) {

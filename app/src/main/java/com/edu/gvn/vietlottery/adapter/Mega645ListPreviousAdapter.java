@@ -13,10 +13,6 @@ import com.edu.gvn.vietlottery.entity.RecyclerItemOnClickListener;
 
 import java.util.ArrayList;
 
-/**
- * Created by hnc on 30/11/2016.
- */
-
 public class Mega645ListPreviousAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int VIEW_ITEM = 0;
     private final int VIEW_LOAD = 1;

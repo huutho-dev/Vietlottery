@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="activity_horizontal_margin">16.0dip</dimen>
+    <dimen name="activity_vertical_margin">16.0dip</dimen>
+
+    <dimen name="xxhdpi_8dp">15dip</dimen>
+    <dimen name="xxhdpi_4dp">7.5dip</dimen>
+    <dimen name="xxhdpi_2dp">3.75dip</dimen>
+
+    <dimen name="indication_height">7.5dip</dimen>
+
+    <dimen name="title_padding">18dip</dimen>
+
+    <dimen name="ball_mega_margin_right">19dip</dimen>
+    <dimen name="ball_mega_width">57dip</dimen>
+    <dimen name="ball_mega_height">57dip</dimen>
+
+    <dimen name="ball_max_margin_right">9.4dip</dimen>
+    <dimen name="ball_max_margin_bottom">5.6dip</dimen>
+    <dimen name="ball_max_width">37dip</dimen>
+    <dimen name="ball_max_height">37dip</dimen>
+
+    <dimen name="time_box_width">37.5dip</dimen>
+    <dimen name="time_box_height">37.5dip</dimen>
+</resources>

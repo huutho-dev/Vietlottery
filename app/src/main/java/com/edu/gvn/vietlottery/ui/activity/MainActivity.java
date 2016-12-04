@@ -1,5 +1,6 @@
 package com.edu.gvn.vietlottery.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.edu.gvn.vietlottery.R;
 import com.edu.gvn.vietlottery.adapter.LotteryPagerAdapter;
+import com.edu.gvn.vietlottery.service.PushNotiService;
 
 public class MainActivity extends AppCompatActivity {
     private final String TAG = MainActivity.class.getSimpleName();
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(mLottAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
 
+        startService(new Intent(this, PushNotiService.class));
 
     }
 }

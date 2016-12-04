@@ -2,10 +2,6 @@ package com.edu.gvn.vietlottery.entity;
 
 import com.edu.gvn.vietlottery.entity.sub.Max4dPrize;
 
-/**
- * Created by HuuTho on 12/2/2016.
- */
-
 public class Max4DCurrent extends BaseEntity {
     public Max4dPrize max4dPrize;
     public String soLuongGiaiNhat, soLuongGiaiNhi, soLuongGiaiBa, soLuongGiaiKK1, soLuongGiaiKK2;

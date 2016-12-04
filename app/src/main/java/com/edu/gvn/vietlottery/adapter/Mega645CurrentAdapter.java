@@ -13,9 +13,6 @@ import com.edu.gvn.vietlottery.entity.sub.Mega645Prize;
 
 import java.util.ArrayList;
 
-/**
- * Created by hnc on 29/11/2016.
- */
 
 public class Mega645CurrentAdapter extends RecyclerView.Adapter<Mega645CurrentAdapter.ViewHolder> {
     private Context context;

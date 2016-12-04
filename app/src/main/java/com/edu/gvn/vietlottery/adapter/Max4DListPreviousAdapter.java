@@ -11,9 +11,6 @@ import com.edu.gvn.vietlottery.entity.sub.Max4dPrize;
 
 import java.util.ArrayList;
 
-/**
- * Created by hnc on 02/12/2016.
- */
 
 public class Max4DListPreviousAdapter extends RecyclerView.Adapter<Max4DListPreviousAdapter.ViewHolder> {
 

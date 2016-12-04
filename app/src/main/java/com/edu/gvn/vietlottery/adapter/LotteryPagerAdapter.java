@@ -11,9 +11,6 @@ import com.edu.gvn.vietlottery.ui.fragment.Mega645Fragment;
 
 import java.util.ArrayList;
 
-/**
- * Created by hnc on 29/11/2016.
- */
 
 public class LotteryPagerAdapter extends FragmentPagerAdapter {
 

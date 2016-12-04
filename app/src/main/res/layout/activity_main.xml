@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_above="@+id/quangCao"
         android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-       >
+        android:orientation="vertical">
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_lottery"
-            android:elevation="@dimen/xxhdpi_8dp"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
+            android:elevation="@dimen/xxhdpi_8dp"
             app:tabIndicatorHeight="@dimen/indication_height"
             app:tabSelectedTextColor="@color/white"
             app:tabTextAppearance="@style/MyTab" />
@@ -29,13 +26,5 @@
             android:layout_height="match_parent" />
 
     </LinearLayout>
-    <TextView
-        android:id="@+id/quangCao"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorAccent"
-        android:gravity="center"
-        android:text="Quảng cáo in here" />
 </RelativeLayout>
 

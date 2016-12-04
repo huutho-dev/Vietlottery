@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -18,12 +19,10 @@ import com.edu.gvn.vietlottery.network.MegaListPreviousAsync;
 
 import java.util.ArrayList;
 
-/**
- * Created by hnc on 30/11/2016.
- */
-
 public class PreviousMega645Activity extends AppCompatActivity implements RecyclerItemOnClickListener {
     private static final int PAGE_HAS = 3;
+
+    private Toolbar toolbar;
     private RecyclerView listPrevious;
     private Mega645ListPreviousAdapter mAdapter;
     private ArrayList<MegaListPrevious> mDatas;
@@ -42,6 +41,10 @@ public class PreviousMega645Activity extends AppCompatActivity implements Recycl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_previous_mega);
 
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getResources().getString(R.string.title_activity_list_previous_mega));
 

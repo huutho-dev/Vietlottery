@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.edu.gvn.vietlottery.Config;
@@ -14,11 +15,10 @@ import com.edu.gvn.vietlottery.network.Max4dPreviousAsync;
 
 import java.util.ArrayList;
 
-/**
- * Created by hnc on 02/12/2016.
- */
-
 public class PreviousMax4DActivity extends AppCompatActivity implements Max4dPreviousAsync.Max4dPreviousCallback {
+
+    private Toolbar toolbar ;
+
     private RecyclerView listMax4d;
     private Max4DListPreviousAdapter mAdapter;
     private RecyclerView.LayoutManager linearManager;
@@ -29,9 +29,11 @@ public class PreviousMax4DActivity extends AppCompatActivity implements Max4dPre
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_previous_max);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getResources().getString(R.string.title_activity_list_previous_max));
-
 
         linearManager = new LinearLayoutManager(this);
         mDatas = new ArrayList<>();
@@ -45,6 +47,7 @@ public class PreviousMax4DActivity extends AppCompatActivity implements Max4dPre
         async.execute(Config.VIETLOTT_PREVIOUS_MAX);
     }
 
+
     @Override
     public void callBack(ArrayList<Max4dPrize> datas) {
         if (datas != null) {
@@ -57,7 +60,7 @@ public class PreviousMax4DActivity extends AppCompatActivity implements Max4dPre
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
             onBackPressed();
         }
         return true;

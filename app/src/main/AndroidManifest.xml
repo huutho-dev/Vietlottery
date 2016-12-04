@@ -20,17 +20,19 @@
             </intent-filter>
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.PreviousMega645Activity"
-            android:theme="@style/AppTheme1" />
+          />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.PreviousMax4DActivity"
-            android:theme="@style/AppTheme1" />
+           />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.Mega645DetailActivity"
-            android:theme="@style/AppTheme1" />
-        <activity
-            android:theme="@style/AppTheme1"
-            android:name=".ui.activity.PreviousMax4DActivity"/>
+           />
+
+        <service android:name=".service.PushNotiService"/>
     </application>
 
 </manifest>

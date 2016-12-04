@@ -5,10 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-/**
- * Created by hnc on 30/11/2016.
- */
-
 public class DateTimeUtils {
     private SimpleDateFormat simpleDateFormat =
             new SimpleDateFormat("M/dd/yyyy hh:mm:ss a", Locale.US);

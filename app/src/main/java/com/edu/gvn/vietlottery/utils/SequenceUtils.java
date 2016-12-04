@@ -1,9 +1,5 @@
 package com.edu.gvn.vietlottery.utils;
 
-/**
- * Created by hnc on 02/12/2016.
- */
-
 public class SequenceUtils {
     private static SequenceUtils sequenceUtils;
 
