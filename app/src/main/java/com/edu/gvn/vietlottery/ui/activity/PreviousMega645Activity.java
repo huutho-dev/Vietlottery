@@ -35,12 +35,10 @@ public class PreviousMega645Activity extends AppCompatActivity implements Recycl
 
     private boolean loading = true;
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_previous_mega);
-
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -62,8 +60,8 @@ public class PreviousMega645Activity extends AppCompatActivity implements Recycl
     @Override
     public void onItemClick(View view, int position) {
 
-        Intent intent = new Intent(this,Mega645DetailActivity.class);
-        intent.putExtra(Mega645DetailActivity.BUNDLE_MEGA,mDatas.get(position));
+        Intent intent = new Intent(this, Mega645DetailActivity.class);
+        intent.putExtra(Mega645DetailActivity.BUNDLE_MEGA, mDatas.get(position));
         startActivity(intent);
 
     }
@@ -71,7 +69,7 @@ public class PreviousMega645Activity extends AppCompatActivity implements Recycl
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) onBackPressed();
-        return true ;
+        return true;
     }
 
     /**
@@ -114,14 +112,16 @@ public class PreviousMega645Activity extends AppCompatActivity implements Recycl
         MegaListPreviousAsync request = new MegaListPreviousAsync(new MegaListPreviousAsync.MegaListPreviousAsyncCallback() {
             @Override
             public void callBack(ArrayList<MegaListPrevious> datas) {
+                if (datas != null) {
 
-                if (mDatas.size() != 0) {
-                    mDatas.remove(mDatas.size() - 1);
+                    if (mDatas.size() != 0) {
+                        mDatas.remove(mDatas.size() - 1);
+                    }
+
+                    mDatas.addAll(datas);
+                    mAdapter.notifyDataSetChanged();
+                    loading = true;
                 }
-
-                mDatas.addAll(datas);
-                mAdapter.notifyDataSetChanged();
-                loading = true;
             }
         });
         indexPage++;

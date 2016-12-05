@@ -19,8 +19,13 @@ import com.edu.gvn.vietlottery.network.Max4DCurrentAsync;
 import com.edu.gvn.vietlottery.ui.activity.PreviousMax4DActivity;
 import com.edu.gvn.vietlottery.utils.DateTimeUtils;
 import com.edu.gvn.vietlottery.utils.SequenceUtils;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 
-public class Max4DFragment extends Fragment implements Max4DCurrentAsync.Max4DCurrentAsyncCallback {
+public class Max4DFragment extends Fragment implements Max4DCurrentAsync.Max4DCurrentAsyncCallback, View.OnClickListener {
 
     private TextView
             kiQuayThuong, ngayQuayThuong,
@@ -37,12 +42,17 @@ public class Max4DFragment extends Fragment implements Max4DCurrentAsync.Max4DCu
     private TextView giaTriGiaiNhat, giaTriGiaiNhi, giaTriGiaiBa, giaTriGiaiKK1, giaTriGiaiKk2;
     private TextView ngay, gio, phut, giay;
 
-    private Button mButtonPrevious ;
+    private Button mButtonPrevious;
 
-    CountDownTimer mCountDownTimer;
+    private CountDownTimer mCountDownTimer;
+
+    private InterstitialAd mInterstitialAd;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        MobileAds.initialize(getContext(), getResources().getString(R.string.banner_id));
 
         Max4DCurrentAsync max4DCurrentAsync = new Max4DCurrentAsync(this);
         max4DCurrentAsync.execute(Config.VIETLOTT_HOME);
@@ -52,6 +62,12 @@ public class Max4DFragment extends Fragment implements Max4DCurrentAsync.Max4DCu
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_max4d, container, false);
+
+        AdView mAdView = (AdView) view.findViewById(R.id.qc);
+        mInterstitialAd = createNewIntAd();
+        loadIntAdd();
+        showBannerAd(mAdView);
+
         initView(view);
         return view;
     }
@@ -63,7 +79,8 @@ public class Max4DFragment extends Fragment implements Max4DCurrentAsync.Max4DCu
 
     @Override
     public void callBack(Max4DCurrent max4DCurrent) {
-        setDataView(max4DCurrent);
+        if (max4DCurrent != null)
+            setDataView(max4DCurrent);
     }
 
     private void initView(View view) {
@@ -125,12 +142,15 @@ public class Max4DFragment extends Fragment implements Max4DCurrentAsync.Max4DCu
         giay = (TextView) view.findViewById(R.id.second);
 
         mButtonPrevious = (Button) view.findViewById(R.id.btn_previous);
-        mButtonPrevious.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().startActivity(new Intent(getActivity(), PreviousMax4DActivity.class));
-            }
-        });
+        mButtonPrevious.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.btn_previous) {
+            //  getActivity().startActivity(new Intent(getActivity(), PreviousMax4DActivity.class));
+            showIntAdd();
+        }
     }
 
     private void setDataView(Max4DCurrent max4DCurrent) {
@@ -257,5 +277,60 @@ public class Max4DFragment extends Fragment implements Max4DCurrentAsync.Max4DCu
             }
         }.start();
     }
+
+
+
+
+    private InterstitialAd createNewIntAd() {
+        InterstitialAd intAd = new InterstitialAd(getActivity());
+        intAd.setAdUnitId(getString(R.string.banner_full_id));
+        intAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+
+            }
+
+            @Override
+            public void onAdClosed() {
+                try {
+                    getActivity().startActivity(new Intent(getActivity(), PreviousMax4DActivity.class));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+            }
+        });
+        return intAd;
+    }
+
+
+    //add quảng cáo vào view
+    private void showBannerAd(AdView mAdView) {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+    }
+
+
+    // Show quảng cáo nếu đã load, chưa load thì startActivity
+    private void showIntAdd() {
+        if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        } else {
+            getActivity().startActivity(new Intent(getActivity(), PreviousMax4DActivity.class));
+        }
+    }
+
+
+    // Load quảng cáo
+    private void loadIntAdd() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mInterstitialAd.loadAd(adRequest);
+    }
+
 
 }

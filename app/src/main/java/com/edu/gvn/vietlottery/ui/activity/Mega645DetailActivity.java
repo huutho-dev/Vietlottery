@@ -59,12 +59,13 @@ public class Mega645DetailActivity extends AppCompatActivity implements Mega645D
         so6 = (TextView) findViewById(R.id.txt_ball_6);
 
         String[] arrLuckyNumber =  SequenceUtils.getInstance().sliptSequence(detail.result," ");
-        so1.setText(arrLuckyNumber[0]);
-        so2.setText(arrLuckyNumber[1]);
-        so3.setText(arrLuckyNumber[2]);
-        so4.setText(arrLuckyNumber[3]);
-        so5.setText(arrLuckyNumber[4]);
-        so6.setText(arrLuckyNumber[5]);
+
+        setTextAndChangeColorBall(so1,arrLuckyNumber[0]);
+        setTextAndChangeColorBall(so2,arrLuckyNumber[1]);
+        setTextAndChangeColorBall(so3,arrLuckyNumber[2]);
+        setTextAndChangeColorBall(so4,arrLuckyNumber[3]);
+        setTextAndChangeColorBall(so5,arrLuckyNumber[4]);
+        setTextAndChangeColorBall(so6,arrLuckyNumber[5]);
 
         mDatas = new ArrayList<>();
         linearManager = new LinearLayoutManager(this);
@@ -75,7 +76,30 @@ public class Mega645DetailActivity extends AppCompatActivity implements Mega645D
         viewDetail.setLayoutManager(linearManager);
         viewDetail.setAdapter(mAdapter);
     }
+    private void setTextAndChangeColorBall(TextView textView, String values) {
+        textView.setText(values);
 
+        int intValues = Integer.parseInt(values);
+        if (intValues <= 10) {
+            textView.setBackground(getResources().getDrawable(R.drawable.custom_ball_red));
+            return;
+        }
+        if (intValues <= 20) {
+            textView.setBackground(getResources().getDrawable(R.drawable.custom_ball_yellow));
+            return;
+        }
+        if (intValues <= 30) {
+            textView.setBackground(getResources().getDrawable(R.drawable.custom_ball_green));
+            return;
+        }
+        if (intValues <= 40) {
+            textView.setBackground(getResources().getDrawable(R.drawable.custom_ball_blue));
+            return;
+        }
+        if (intValues <= 45) {
+            textView.setBackground(getResources().getDrawable(R.drawable.custom_ball_purple));
+        }
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) onBackPressed();

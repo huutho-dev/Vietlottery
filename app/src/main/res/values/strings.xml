@@ -30,6 +30,12 @@
     <string name="time_up">Đã đến giờ quay thưởng</string>
     <string name="turn_on_tv">Bật TV để xem quay số trúng thưởng</string>
     <string name="content">Đang quay số trúng thưởng</string>
+    <string name="network_conn_title">Lỗi kết nối</string>
+    <string name="network_conn_content">Yêu cầu của bạn chưa được thực hiện do lỗi kết nối. Xin vui lòng thử lại.</string>
+    <string name="network_conn_button">Thử lại</string>
 
+
+    <string name="banner_id">ca-app-pub-6092828069522249/5180068013</string>
+    <string name="banner_full_id">ca-app-pub-6092828069522249/6796402015</string>
 
 </resources>

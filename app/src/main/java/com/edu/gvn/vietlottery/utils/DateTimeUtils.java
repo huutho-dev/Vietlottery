@@ -47,6 +47,8 @@ public class DateTimeUtils {
             remainTimeBuilder.append("-");
             remainTimeBuilder.append(convertTimeLongToString(elapsedSeconds));
 
+            LogUtils.v("DateTimeUtils", remainTimeBuilder.toString());
+
             return remainTimeBuilder.toString();
         } catch (ParseException e) {
             e.printStackTrace();

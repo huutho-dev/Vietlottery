@@ -22,6 +22,11 @@ import com.edu.gvn.vietlottery.entity.sub.Mega645Prize;
 import com.edu.gvn.vietlottery.network.Mega645CurrentAsync;
 import com.edu.gvn.vietlottery.ui.activity.PreviousMega645Activity;
 import com.edu.gvn.vietlottery.utils.DateTimeUtils;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 
@@ -43,9 +48,16 @@ public class Mega645Fragment extends Fragment implements Mega645CurrentAsync.Meg
 
     CountDownTimer mCountDownTimer;
 
+
+    private InterstitialAd mInterstitialAd;
+
+
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MobileAds.initialize(getContext(), getResources().getString(R.string.banner_id));
 
         Mega645CurrentAsync mega645Async = new Mega645CurrentAsync(this);
         mega645Async.execute(Config.VIETLOTT_HOME);
@@ -56,6 +68,17 @@ public class Mega645Fragment extends Fragment implements Mega645CurrentAsync.Meg
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mega645, container, false);
 
+        AdView mAdView = (AdView) view.findViewById(R.id.qc);
+        mInterstitialAd = createNewIntAd();
+        loadIntAdd();
+        showBannerAd(mAdView);
+
+        initView(view);
+        return view;
+    }
+
+
+    private void initView(View view) {
         kyQuayThuong = (TextView) view.findViewById(R.id.txt_time_number);
         ngayQuayThuong = (TextView) view.findViewById(R.id.txt_time_date);
         so1 = (TextView) view.findViewById(R.id.txt_ball_1);
@@ -72,7 +95,6 @@ public class Mega645Fragment extends Fragment implements Mega645CurrentAsync.Meg
 
         viewResult = (RecyclerView) view.findViewById(R.id.view_result);
         lanQuayTruoc = (Button) view.findViewById(R.id.btn_previous);
-        return view;
     }
 
     @Override
@@ -90,29 +112,57 @@ public class Mega645Fragment extends Fragment implements Mega645CurrentAsync.Meg
 
     @Override
     public void callBack(Mega645Current current) {
-        String[] arrLuckyNumber = current.mega645Previous.soMayMan.split(" ");
 
-        kyQuayThuong.setText(current.mega645Previous.kyQuayThuong);
-        ngayQuayThuong.setText(current.mega645Previous.ngayQuayThuong);
+        if (current != null) {
+            String[] arrLuckyNumber = current.mega645Previous.soMayMan.split(" ");
 
-        so1.setText(arrLuckyNumber[0]);
-        so2.setText(arrLuckyNumber[1]);
-        so3.setText(arrLuckyNumber[2]);
-        so4.setText(arrLuckyNumber[3]);
-        so5.setText(arrLuckyNumber[4]);
-        so6.setText(arrLuckyNumber[5]);
+            kyQuayThuong.setText(current.mega645Previous.kyQuayThuong);
+            ngayQuayThuong.setText(current.mega645Previous.ngayQuayThuong);
 
-        giaTriUocTinh.setText(current.giaTriUocTinh);
+            setTextAndChangeColorBall(so1,arrLuckyNumber[0]);
+            setTextAndChangeColorBall(so2,arrLuckyNumber[1]);
+            setTextAndChangeColorBall(so3,arrLuckyNumber[2]);
+            setTextAndChangeColorBall(so4,arrLuckyNumber[3]);
+            setTextAndChangeColorBall(so5,arrLuckyNumber[4]);
+            setTextAndChangeColorBall(so6,arrLuckyNumber[5]);
+
+            giaTriUocTinh.setText(current.giaTriUocTinh);
 
 
-        datas.clear();
-        datas.addAll(current.mega645Previous.mega645Prizes);
-        mAdapter.notifyDataSetChanged();
+            datas.clear();
+            datas.addAll(current.mega645Previous.mega645Prizes);
+            mAdapter.notifyDataSetChanged();
 
-        DateTimeUtils dateTimeUtils = new DateTimeUtils();
-        String remain = dateTimeUtils.remainingTime(current.curentTime, current.endTime);
-        countTime(remain, ngay, gio, phut, giay);
+            DateTimeUtils dateTimeUtils = new DateTimeUtils();
+            String remain = dateTimeUtils.remainingTime(current.curentTime, current.endTime);
+            countTime(remain, ngay, gio, phut, giay);
+        }
     }
+    private void setTextAndChangeColorBall(TextView textView, String values) {
+        textView.setText(values);
+
+        int intValues = Integer.parseInt(values);
+        if (intValues <= 10) {
+            textView.setBackground(getResources().getDrawable(R.drawable.ball_red));
+            return;
+        }
+        if (intValues <= 20) {
+            textView.setBackground(getResources().getDrawable(R.drawable.bal_yellow));
+            return;
+        }
+        if (intValues <= 30) {
+            textView.setBackground(getResources().getDrawable(R.drawable.bal_green));
+            return;
+        }
+        if (intValues <= 40) {
+            textView.setBackground(getResources().getDrawable(R.drawable.bal_blue));
+            return;
+        }
+        if (intValues <= 45) {
+            textView.setBackground(getResources().getDrawable(R.drawable.bal_purple));
+        }
+    }
+
 
     private void countTime(String remain, final TextView ngay, final TextView gio, final TextView phut, final TextView giay) {
 
@@ -169,11 +219,57 @@ public class Mega645Fragment extends Fragment implements Mega645CurrentAsync.Meg
         }.start();
     }
 
-
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_previous) {
+          //  getActivity().startActivity(new Intent(getActivity(), PreviousMega645Activity.class));
+            showIntAdd();
+        }
+    }
+
+
+
+    // add quảng cáo vào view
+    private void showBannerAd(AdView mAdView) {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+    }
+
+    private InterstitialAd createNewIntAd() {
+        InterstitialAd intAd = new InterstitialAd(getActivity());
+        intAd.setAdUnitId(getString(R.string.banner_full_id));
+        intAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+
+            }
+
+            @Override
+            public void onAdClosed() {
+                getActivity().startActivity(new Intent(getActivity(), PreviousMega645Activity.class));
+            }
+        });
+        return intAd;
+    }
+
+    // Show quảng cáo nếu đã load, chưa load thì startActivity
+    private void showIntAdd() {
+        if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }else {
             getActivity().startActivity(new Intent(getActivity(), PreviousMega645Activity.class));
         }
     }
+
+    // Load quảng cáo
+    private void loadIntAdd() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mInterstitialAd.loadAd(adRequest);
+    }
+
 }
