@@ -81,23 +81,23 @@ public class Mega645DetailActivity extends AppCompatActivity implements Mega645D
 
         int intValues = Integer.parseInt(values);
         if (intValues <= 10) {
-            textView.setBackground(getResources().getDrawable(R.drawable.custom_ball_red));
+            textView.setBackground(getResources().getDrawable(R.drawable.ball_red));
             return;
         }
         if (intValues <= 20) {
-            textView.setBackground(getResources().getDrawable(R.drawable.custom_ball_yellow));
+            textView.setBackground(getResources().getDrawable(R.drawable.ball_yellow));
             return;
         }
         if (intValues <= 30) {
-            textView.setBackground(getResources().getDrawable(R.drawable.custom_ball_green));
+            textView.setBackground(getResources().getDrawable(R.drawable.ball_green));
             return;
         }
         if (intValues <= 40) {
-            textView.setBackground(getResources().getDrawable(R.drawable.custom_ball_blue));
+            textView.setBackground(getResources().getDrawable(R.drawable.ball_blue));
             return;
         }
         if (intValues <= 45) {
-            textView.setBackground(getResources().getDrawable(R.drawable.custom_ball_purple));
+            textView.setBackground(getResources().getDrawable(R.drawable.ball_pupple));
         }
     }
     @Override

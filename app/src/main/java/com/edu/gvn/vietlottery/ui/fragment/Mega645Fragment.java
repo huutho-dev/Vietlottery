@@ -147,19 +147,19 @@ public class Mega645Fragment extends Fragment implements Mega645CurrentAsync.Meg
             return;
         }
         if (intValues <= 20) {
-            textView.setBackground(getResources().getDrawable(R.drawable.bal_yellow));
+            textView.setBackground(getResources().getDrawable(R.drawable.ball_yellow));
             return;
         }
         if (intValues <= 30) {
-            textView.setBackground(getResources().getDrawable(R.drawable.bal_green));
+            textView.setBackground(getResources().getDrawable(R.drawable.ball_green));
             return;
         }
         if (intValues <= 40) {
-            textView.setBackground(getResources().getDrawable(R.drawable.bal_blue));
+            textView.setBackground(getResources().getDrawable(R.drawable.ball_blue));
             return;
         }
         if (intValues <= 45) {
-            textView.setBackground(getResources().getDrawable(R.drawable.bal_purple));
+            textView.setBackground(getResources().getDrawable(R.drawable.ball_pupple));
         }
     }
 

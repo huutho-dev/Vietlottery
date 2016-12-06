@@ -141,24 +141,24 @@
                 <TextView
                     android:id="@+id/txt_giai_nhat_ball1"
                     style="@style/TextBallMax"
-                    android:background="@drawable/custom_ball_red"
+                    android:background="@drawable/ball_red"
                     />
 
                 <TextView
                     android:id="@+id/txt_giai_nhat_ball2"
                     style="@style/TextBallMax"
-                    android:background="@drawable/custom_ball_red"
+                    android:background="@drawable/ball_red"
                     android:text="" />
 
                 <TextView
                     android:id="@+id/txt_giai_nhat_ball3"
                     style="@style/TextBallMax"
-                    android:background="@drawable/custom_ball_red" />
+                    android:background="@drawable/ball_red" />
 
                 <TextView
                     android:id="@+id/txt_giai_nhat_ball4"
                     style="@style/TextBallMax"
-                    android:background="@drawable/custom_ball_red" />
+                    android:background="@drawable/ball_red" />
 
             </LinearLayout>
 
@@ -218,22 +218,22 @@
                     <TextView
                         android:id="@+id/txt_giai_nhi_1_ball1"
                         style="@style/TextBallMax"
-                        android:background="@drawable/custom_ball_yellow" />
+                        android:background="@drawable/ball_yellow" />
 
                     <TextView
                         android:id="@+id/txt_giai_nhi_1_ball2"
                         style="@style/TextBallMax"
-                        android:background="@drawable/custom_ball_yellow" />
+                        android:background="@drawable/ball_yellow" />
 
                     <TextView
                         android:id="@+id/txt_giai_nhi_1_ball3"
                         style="@style/TextBallMax"
-                        android:background="@drawable/custom_ball_yellow" />
+                        android:background="@drawable/ball_yellow" />
 
                     <TextView
                         android:id="@+id/txt_giai_nhi_1_ball4"
                         style="@style/TextBallMax"
-                        android:background="@drawable/custom_ball_yellow" />
+                        android:background="@drawable/ball_yellow" />
 
                 </LinearLayout>
 
@@ -246,22 +246,22 @@
                     <TextView
                         android:id="@+id/txt_giai_nhi_2_ball1"
                         style="@style/TextBallMax"
-                        android:background="@drawable/custom_ball_yellow" />
+                        android:background="@drawable/ball_yellow" />
 
                     <TextView
                         android:id="@+id/txt_giai_nhi_2_ball2"
                         style="@style/TextBallMax"
-                        android:background="@drawable/custom_ball_yellow" />
+                        android:background="@drawable/ball_yellow" />
 
                     <TextView
                         android:id="@+id/txt_giai_nhi_2_ball3"
                         style="@style/TextBallMax"
-                        android:background="@drawable/custom_ball_yellow" />
+                        android:background="@drawable/ball_yellow" />
 
                     <TextView
                         android:id="@+id/txt_giai_nhi_2_ball4"
                         style="@style/TextBallMax"
-                        android:background="@drawable/custom_ball_yellow" />
+                        android:background="@drawable/ball_yellow" />
 
                 </LinearLayout>
 
@@ -323,22 +323,22 @@
                     <TextView
                         android:id="@+id/txt_giai_ba_1_ball1"
                         style="@style/TextBallMax"
-                        android:background="@drawable/custom_ball_green" />
+                        android:background="@drawable/ball_green" />
 
                     <TextView
                         android:id="@+id/txt_giai_ba_1_ball2"
                         style="@style/TextBallMax"
-                        android:background="@drawable/custom_ball_green" />
+                        android:background="@drawable/ball_green" />
 
                     <TextView
                         android:id="@+id/txt_giai_ba_1_ball3"
                         style="@style/TextBallMax"
-                        android:background="@drawable/custom_ball_green" />
+                        android:background="@drawable/ball_green" />
 
                     <TextView
                         android:id="@+id/txt_giai_ba_1_ball4"
                         style="@style/TextBallMax"
-                        android:background="@drawable/custom_ball_green" />
+                        android:background="@drawable/ball_green" />
 
                 </LinearLayout>
 
@@ -351,22 +351,22 @@
                     <TextView
                         android:id="@+id/txt_giai_ba_2_ball1"
                         style="@style/TextBallMax"
-                        android:background="@drawable/custom_ball_green" />
+                        android:background="@drawable/ball_green" />
 
                     <TextView
                         android:id="@+id/txt_giai_ba_2_ball2"
                         style="@style/TextBallMax"
-                        android:background="@drawable/custom_ball_green" />
+                        android:background="@drawable/ball_green" />
 
                     <TextView
                         android:id="@+id/txt_giai_ba_2_ball3"
                         style="@style/TextBallMax"
-                        android:background="@drawable/custom_ball_green" />
+                        android:background="@drawable/ball_green" />
 
                     <TextView
                         android:id="@+id/txt_giai_ba_2_ball4"
                         style="@style/TextBallMax"
-                        android:background="@drawable/custom_ball_green" />
+                        android:background="@drawable/ball_green" />
 
                 </LinearLayout>
 
@@ -379,22 +379,22 @@
                     <TextView
                         android:id="@+id/txt_giai_ba_3_ball1"
                         style="@style/TextBallMax"
-                        android:background="@drawable/custom_ball_green" />
+                        android:background="@drawable/ball_green" />
 
                     <TextView
                         android:id="@+id/txt_giai_ba_3_ball2"
                         style="@style/TextBallMax"
-                        android:background="@drawable/custom_ball_green" />
+                        android:background="@drawable/ball_green" />
 
                     <TextView
                         android:id="@+id/txt_giai_ba_3_ball3"
                         style="@style/TextBallMax"
-                        android:background="@drawable/custom_ball_green" />
+                        android:background="@drawable/ball_green" />
 
                     <TextView
                         android:id="@+id/txt_giai_ba_3_ball4"
                         style="@style/TextBallMax"
-                        android:background="@drawable/custom_ball_green" />
+                        android:background="@drawable/ball_green" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -450,17 +450,17 @@
                 <TextView
                     android:id="@+id/txt_giai_kk_1_ball2"
                     style="@style/TextBallMax"
-                    android:background="@drawable/custom_ball_blue" />
+                    android:background="@drawable/ball_blue" />
 
                 <TextView
                     android:id="@+id/txt_giai_kk_1_ball3"
                     style="@style/TextBallMax"
-                    android:background="@drawable/custom_ball_blue" />
+                    android:background="@drawable/ball_blue" />
 
                 <TextView
                     android:id="@+id/txt_giai_kk_1_ball4"
                     style="@style/TextBallMax"
-                    android:background="@drawable/custom_ball_blue" />
+                    android:background="@drawable/ball_blue" />
 
             </LinearLayout>
 
@@ -516,12 +516,12 @@
                 <TextView
                     android:id="@+id/txt_giai_kk_2_ball3"
                     style="@style/TextBallMax"
-                    android:background="@drawable/custom_ball_purple" />
+                    android:background="@drawable/ball_pupple" />
 
                 <TextView
                     android:id="@+id/txt_giai_kk_2_ball4"
                     style="@style/TextBallMax"
-                    android:background="@drawable/custom_ball_purple" />
+                    android:background="@drawable/ball_pupple" />
 
             </LinearLayout>
 
