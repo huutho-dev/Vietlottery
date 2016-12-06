@@ -31,8 +31,8 @@
     <string name="turn_on_tv">Bật TV để xem quay số trúng thưởng</string>
     <string name="content">Đang quay số trúng thưởng</string>
     <string name="network_conn_title">Lỗi kết nối</string>
-    <string name="network_conn_content">Yêu cầu của bạn chưa được thực hiện do lỗi kết nối. Xin vui lòng thử lại.</string>
-    <string name="network_conn_button">Thử lại</string>
+    <string name="network_conn_content">Ứng dụng cần kết nối internet để tải kết quả gần nhất</string>
+    <string name="network_conn_button">Kết nối</string>
 
 
     <string name="banner_id">ca-app-pub-6092828069522249/5180068013</string>

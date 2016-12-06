@@ -1,7 +1,6 @@
 package com.edu.gvn.vietlottery.ui.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -15,7 +14,7 @@ import com.edu.gvn.vietlottery.network.Max4dPreviousAsync;
 
 import java.util.ArrayList;
 
-public class PreviousMax4DActivity extends AppCompatActivity implements Max4dPreviousAsync.Max4dPreviousCallback {
+public class PreviousMax4DActivity extends BaseActivity implements Max4dPreviousAsync.Max4dPreviousCallback {
 
     private Toolbar toolbar ;
 

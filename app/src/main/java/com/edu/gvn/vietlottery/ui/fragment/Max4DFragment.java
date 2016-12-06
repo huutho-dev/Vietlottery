@@ -51,9 +51,10 @@ public class Max4DFragment extends Fragment implements Max4DCurrentAsync.Max4DCu
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         MobileAds.initialize(getContext(), getResources().getString(R.string.banner_id));
+    }
 
+    public void requestData(){
         Max4DCurrentAsync max4DCurrentAsync = new Max4DCurrentAsync(this);
         max4DCurrentAsync.execute(Config.VIETLOTT_HOME);
     }
@@ -154,74 +155,77 @@ public class Max4DFragment extends Fragment implements Max4DCurrentAsync.Max4DCu
     }
 
     private void setDataView(Max4DCurrent max4DCurrent) {
-        kiQuayThuong.setText(max4DCurrent.max4dPrize.kyQuayThuong);
-        ngayQuayThuong.setText(max4DCurrent.max4dPrize.ngayQuayThuong);
 
-        String[] giaiNhat = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiNhat, " ");
-        giaiNhatSo1.setText(giaiNhat[0]);
-        giaiNhatSo2.setText(giaiNhat[1]);
-        giaiNhatSo3.setText(giaiNhat[2]);
-        giaiNhatSo4.setText(giaiNhat[3]);
+        if (max4DCurrent !=null){
+            kiQuayThuong.setText(max4DCurrent.max4dPrize.kyQuayThuong);
+            ngayQuayThuong.setText(max4DCurrent.max4dPrize.ngayQuayThuong);
 
-        String[] giaiNhi1 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiNhi1, " ");
-        giaiNhi1So1.setText(giaiNhi1[0]);
-        giaiNhi1So2.setText(giaiNhi1[1]);
-        giaiNhi1So3.setText(giaiNhi1[2]);
-        giaiNhi1So4.setText(giaiNhi1[3]);
+            String[] giaiNhat = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiNhat, " ");
+            giaiNhatSo1.setText(giaiNhat[0]);
+            giaiNhatSo2.setText(giaiNhat[1]);
+            giaiNhatSo3.setText(giaiNhat[2]);
+            giaiNhatSo4.setText(giaiNhat[3]);
 
-        String[] giaiNhi2 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiNhi2, " ");
-        giaiNhi2So1.setText(giaiNhi2[0]);
-        giaiNhi2So2.setText(giaiNhi2[1]);
-        giaiNhi2So3.setText(giaiNhi2[2]);
-        giaiNhi2So4.setText(giaiNhi2[3]);
+            String[] giaiNhi1 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiNhi1, " ");
+            giaiNhi1So1.setText(giaiNhi1[0]);
+            giaiNhi1So2.setText(giaiNhi1[1]);
+            giaiNhi1So3.setText(giaiNhi1[2]);
+            giaiNhi1So4.setText(giaiNhi1[3]);
 
-        String[] giaiBa1 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiBa1, " ");
-        giaiBa1So1.setText(giaiBa1[0]);
-        giaiBa1So2.setText(giaiBa1[1]);
-        giaiBa1So3.setText(giaiBa1[2]);
-        giaiBa1So4.setText(giaiBa1[3]);
+            String[] giaiNhi2 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiNhi2, " ");
+            giaiNhi2So1.setText(giaiNhi2[0]);
+            giaiNhi2So2.setText(giaiNhi2[1]);
+            giaiNhi2So3.setText(giaiNhi2[2]);
+            giaiNhi2So4.setText(giaiNhi2[3]);
 
-        String[] giaiBa2 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiBa2, " ");
-        giaiBa2So1.setText(giaiBa2[0]);
-        giaiBa2So2.setText(giaiBa2[1]);
-        giaiBa2So3.setText(giaiBa2[2]);
-        giaiBa2So4.setText(giaiBa2[3]);
+            String[] giaiBa1 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiBa1, " ");
+            giaiBa1So1.setText(giaiBa1[0]);
+            giaiBa1So2.setText(giaiBa1[1]);
+            giaiBa1So3.setText(giaiBa1[2]);
+            giaiBa1So4.setText(giaiBa1[3]);
 
-        String[] giaiBa3 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiBa3, " ");
-        giaiBa3So1.setText(giaiBa3[0]);
-        giaiBa3So2.setText(giaiBa3[1]);
-        giaiBa3So3.setText(giaiBa3[2]);
-        giaiBa3So4.setText(giaiBa3[3]);
+            String[] giaiBa2 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiBa2, " ");
+            giaiBa2So1.setText(giaiBa2[0]);
+            giaiBa2So2.setText(giaiBa2[1]);
+            giaiBa2So3.setText(giaiBa2[2]);
+            giaiBa2So4.setText(giaiBa2[3]);
 
-        String[] kk1 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiKK1, " ");
-        giaiKK1So2.setText(kk1[1]);
-        giaiKK1So3.setText(kk1[2]);
-        giaiKK1So4.setText(kk1[3]);
+            String[] giaiBa3 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiBa3, " ");
+            giaiBa3So1.setText(giaiBa3[0]);
+            giaiBa3So2.setText(giaiBa3[1]);
+            giaiBa3So3.setText(giaiBa3[2]);
+            giaiBa3So4.setText(giaiBa3[3]);
 
-        String[] kk2 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiKK2, " ");
-        giaiKK2So3.setText(kk2[2]);
-        giaiKK2So4.setText(kk2[3]);
+            String[] kk1 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiKK1, " ");
+            giaiKK1So2.setText(kk1[1]);
+            giaiKK1So3.setText(kk1[2]);
+            giaiKK1So4.setText(kk1[3]);
 
-        soLuongGiaiNhat.setText(max4DCurrent.soLuongGiaiNhat);
-        soLuongGiaiNhi.setText(max4DCurrent.soLuongGiaiNhi);
-        soLuongGiaiBa.setText(max4DCurrent.soLuongGiaiBa);
-        soLuongGiaiKK1.setText(max4DCurrent.soLuongGiaiKK1);
-        soLuongGiaiKk2.setText(max4DCurrent.soLuongGiaiKK2);
+            String[] kk2 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiKK2, " ");
+            giaiKK2So3.setText(kk2[2]);
+            giaiKK2So4.setText(kk2[3]);
 
-        giaTriGiaiNhat.setText(max4DCurrent.giaTriGiaiNhat);
-        giaTriGiaiNhi.setText(max4DCurrent.giaTriGiaiNhi);
-        giaTriGiaiBa.setText(max4DCurrent.giaTriGiaiBa);
-        giaTriGiaiKK1.setText(max4DCurrent.giaTriGiaiKK1);
-        giaTriGiaiKk2.setText(max4DCurrent.giaTriGiaiKK2);
+            soLuongGiaiNhat.setText(max4DCurrent.soLuongGiaiNhat);
+            soLuongGiaiNhi.setText(max4DCurrent.soLuongGiaiNhi);
+            soLuongGiaiBa.setText(max4DCurrent.soLuongGiaiBa);
+            soLuongGiaiKK1.setText(max4DCurrent.soLuongGiaiKK1);
+            soLuongGiaiKk2.setText(max4DCurrent.soLuongGiaiKK2);
 
-        ngay.setText("00");
-        gio.setText("00");
-        phut.setText("00");
-        giay.setText("00");
+            giaTriGiaiNhat.setText(max4DCurrent.giaTriGiaiNhat);
+            giaTriGiaiNhi.setText(max4DCurrent.giaTriGiaiNhi);
+            giaTriGiaiBa.setText(max4DCurrent.giaTriGiaiBa);
+            giaTriGiaiKK1.setText(max4DCurrent.giaTriGiaiKK1);
+            giaTriGiaiKk2.setText(max4DCurrent.giaTriGiaiKK2);
 
-        DateTimeUtils dateTimeUtils = new DateTimeUtils();
-        String remain = dateTimeUtils.remainingTime(max4DCurrent.currentTime, max4DCurrent.endTime);
-        countTime(remain, ngay, gio, phut, giay);
+            ngay.setText("00");
+            gio.setText("00");
+            phut.setText("00");
+            giay.setText("00");
+
+            DateTimeUtils dateTimeUtils = new DateTimeUtils();
+            String remain = dateTimeUtils.remainingTime(max4DCurrent.currentTime, max4DCurrent.endTime);
+            countTime(remain, ngay, gio, phut, giay);
+        }
     }
 
     private void countTime(String remain, final TextView ngay, final TextView gio, final TextView phut, final TextView giay) {
@@ -277,9 +281,6 @@ public class Max4DFragment extends Fragment implements Max4DCurrentAsync.Max4DCu
             }
         }.start();
     }
-
-
-
 
     private InterstitialAd createNewIntAd() {
         InterstitialAd intAd = new InterstitialAd(getActivity());

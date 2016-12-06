@@ -3,7 +3,6 @@ package com.edu.gvn.vietlottery.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -19,7 +18,7 @@ import com.edu.gvn.vietlottery.network.MegaListPreviousAsync;
 
 import java.util.ArrayList;
 
-public class PreviousMega645Activity extends AppCompatActivity implements RecyclerItemOnClickListener {
+public class PreviousMega645Activity extends BaseActivity implements RecyclerItemOnClickListener {
     private static final int PAGE_HAS = 3;
 
     private Toolbar toolbar;

@@ -5,10 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.edu.gvn.vietlottery.R;
-import com.edu.gvn.vietlottery.ui.fragment.Max4DFragment;
-import com.edu.gvn.vietlottery.ui.fragment.Mega645Fragment;
-
 import java.util.ArrayList;
 
 
@@ -19,12 +15,11 @@ public class LotteryPagerAdapter extends FragmentPagerAdapter {
 
     public LotteryPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
+    }
 
-        fragments.add(new Mega645Fragment());
-        fragments.add(new Max4DFragment());
-
-        titles.add(context.getResources().getString(R.string.tab_mega));
-        titles.add(context.getResources().getString(R.string.tab_max));
+    public void addFragment(Fragment fragment , String title){
+        fragments.add(fragment);
+        titles.add(title);
     }
 
     @Override

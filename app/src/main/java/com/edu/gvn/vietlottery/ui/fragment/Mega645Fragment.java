@@ -22,6 +22,7 @@ import com.edu.gvn.vietlottery.entity.sub.Mega645Prize;
 import com.edu.gvn.vietlottery.network.Mega645CurrentAsync;
 import com.edu.gvn.vietlottery.ui.activity.PreviousMega645Activity;
 import com.edu.gvn.vietlottery.utils.DateTimeUtils;
+import com.edu.gvn.vietlottery.utils.LogUtils;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -48,19 +49,13 @@ public class Mega645Fragment extends Fragment implements Mega645CurrentAsync.Meg
 
     CountDownTimer mCountDownTimer;
 
-
     private InterstitialAd mInterstitialAd;
-
-
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MobileAds.initialize(getContext(), getResources().getString(R.string.banner_id));
 
-        Mega645CurrentAsync mega645Async = new Mega645CurrentAsync(this);
-        mega645Async.execute(Config.VIETLOTT_HOME);
     }
 
     @Nullable
@@ -77,6 +72,10 @@ public class Mega645Fragment extends Fragment implements Mega645CurrentAsync.Meg
         return view;
     }
 
+    public void requestData() {
+        Mega645CurrentAsync mega645Async = new Mega645CurrentAsync(this);
+        mega645Async.execute(Config.VIETLOTT_HOME);
+    }
 
     private void initView(View view) {
         kyQuayThuong = (TextView) view.findViewById(R.id.txt_time_number);
@@ -119,12 +118,12 @@ public class Mega645Fragment extends Fragment implements Mega645CurrentAsync.Meg
             kyQuayThuong.setText(current.mega645Previous.kyQuayThuong);
             ngayQuayThuong.setText(current.mega645Previous.ngayQuayThuong);
 
-            setTextAndChangeColorBall(so1,arrLuckyNumber[0]);
-            setTextAndChangeColorBall(so2,arrLuckyNumber[1]);
-            setTextAndChangeColorBall(so3,arrLuckyNumber[2]);
-            setTextAndChangeColorBall(so4,arrLuckyNumber[3]);
-            setTextAndChangeColorBall(so5,arrLuckyNumber[4]);
-            setTextAndChangeColorBall(so6,arrLuckyNumber[5]);
+            setTextAndChangeColorBall(so1, arrLuckyNumber[0]);
+            setTextAndChangeColorBall(so2, arrLuckyNumber[1]);
+            setTextAndChangeColorBall(so3, arrLuckyNumber[2]);
+            setTextAndChangeColorBall(so4, arrLuckyNumber[3]);
+            setTextAndChangeColorBall(so5, arrLuckyNumber[4]);
+            setTextAndChangeColorBall(so6, arrLuckyNumber[5]);
 
             giaTriUocTinh.setText(current.giaTriUocTinh);
 
@@ -138,6 +137,7 @@ public class Mega645Fragment extends Fragment implements Mega645CurrentAsync.Meg
             countTime(remain, ngay, gio, phut, giay);
         }
     }
+
     private void setTextAndChangeColorBall(TextView textView, String values) {
         textView.setText(values);
 
@@ -168,6 +168,8 @@ public class Mega645Fragment extends Fragment implements Mega645CurrentAsync.Meg
 
         String[] myDateTime = remain.split("-");
 
+        LogUtils.v("huutho",remain);
+
         long mInitialTime =
                 DateUtils.DAY_IN_MILLIS * Integer.parseInt(myDateTime[0]) +
                         DateUtils.HOUR_IN_MILLIS * Integer.parseInt(myDateTime[1]) +
@@ -187,11 +189,15 @@ public class Mega645Fragment extends Fragment implements Mega645CurrentAsync.Meg
                 time.setLength(0);
 
                 if (millisUntilFinished > DateUtils.DAY_IN_MILLIS) {
-                    long count = millisUntilFinished / DateUtils.DAY_IN_MILLIS;
-                    time.append(count).append(":");
-                    millisUntilFinished %= DateUtils.DAY_IN_MILLIS;
+                    long day= millisUntilFinished / DateUtils.DAY_IN_MILLIS;
+                    time.append(day).append(":");
+                    long hour = (millisUntilFinished %= DateUtils.HOUR_IN_MILLIS)/ DateUtils.HOUR_IN_MILLIS ;
+                    time.append(hour).append(":");
+
+                    millisUntilFinished %= DateUtils.HOUR_IN_MILLIS;
+
                 } else {
-                    time.append("00").append(":");
+                  //  time.append("00").append(":");
                 }
 
                 time.append(DateUtils.formatElapsedTime(Math.round(millisUntilFinished / 1000d)));
@@ -200,6 +206,8 @@ public class Mega645Fragment extends Fragment implements Mega645CurrentAsync.Meg
                 gio.setText("00");
                 phut.setText("00");
                 giay.setText("00");
+
+                LogUtils.v("huutho",time.toString());
 
                 String[] remain = time.toString().split(":");
                 if (remain.length == 4) {
@@ -222,11 +230,10 @@ public class Mega645Fragment extends Fragment implements Mega645CurrentAsync.Meg
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_previous) {
-          //  getActivity().startActivity(new Intent(getActivity(), PreviousMega645Activity.class));
+            //  getActivity().startActivity(new Intent(getActivity(), PreviousMega645Activity.class));
             showIntAdd();
         }
     }
-
 
 
     // add quảng cáo vào view
@@ -261,7 +268,7 @@ public class Mega645Fragment extends Fragment implements Mega645CurrentAsync.Meg
     private void showIntAdd() {
         if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
-        }else {
+        } else {
             getActivity().startActivity(new Intent(getActivity(), PreviousMega645Activity.class));
         }
     }

@@ -2,7 +2,6 @@ package com.edu.gvn.vietlottery.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -20,7 +19,7 @@ import com.edu.gvn.vietlottery.utils.SequenceUtils;
 
 import java.util.ArrayList;
 
-public class Mega645DetailActivity extends AppCompatActivity implements Mega645DetailAsync.Mega645AsyncCallback {
+public class Mega645DetailActivity extends BaseActivity implements Mega645DetailAsync.Mega645AsyncCallback {
     public static final String BUNDLE_MEGA = "bundle.lucky";
 
     private Toolbar toolbar ;

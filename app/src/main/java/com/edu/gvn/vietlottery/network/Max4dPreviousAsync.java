@@ -12,6 +12,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Max4dPreviousAsync extends AsyncTask<String, Void, ArrayList<Max4dPrize>> {
     private static final String ROOT_TABLE = "div.result.clearfix.table-responsive > table.table.table-striped > tbody > tr";
@@ -63,6 +64,7 @@ public class Max4dPreviousAsync extends AsyncTask<String, Void, ArrayList<Max4dP
                     listPrize.add(max4dPrize);
                 }
             }
+            Collections.reverse(listPrize);
             return listPrize;
         } catch (IOException e) {
             e.printStackTrace();

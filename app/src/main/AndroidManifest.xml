@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Base">
         <activity
-            android:name=".ui.activity.SplashActivity"
+            android:name=".ui.activity.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,10 +28,6 @@
         <activity
             android:name=".ui.activity.Mega645DetailActivity"
             android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".ui.activity.MainActivity"
-            android:screenOrientation="portrait"/>
 
         <service android:name=".service.PushNotiService" />
 
