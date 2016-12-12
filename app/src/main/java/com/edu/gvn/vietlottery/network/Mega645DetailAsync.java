@@ -1,10 +1,13 @@
 package com.edu.gvn.vietlottery.network;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import com.edu.gvn.vietlottery.Config;
 import com.edu.gvn.vietlottery.entity.Mega645Previous;
 import com.edu.gvn.vietlottery.entity.sub.Mega645Prize;
+import com.edu.gvn.vietlottery.utils.ReadWriteJsonFileUtils;
+import com.google.gson.Gson;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -14,8 +17,8 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class    Mega645DetailAsync extends AsyncTask<String, Void, Mega645Previous> {
-
+public class Mega645DetailAsync extends AsyncTask<String, Void, Mega645Previous> {
+    private static final String NAME_DETAIL_MEGA645 ="Detail_mega645";
     private static final String NEWS_PAGE = "div.col-xs-12.col-md-10.news-page";
     private static final String GET_DATE_TIME_MEGA_645 = "div.box-result-detail > p.time-result > b";
     private static final String GET_SO_TIEN_GIAI_JACKPOT = "div.box-result-detail > h4.jackpot-value.red > b";
@@ -29,9 +32,11 @@ public class    Mega645DetailAsync extends AsyncTask<String, Void, Mega645Previo
     }
 
     private Mega645AsyncCallback callback;
+    private ReadWriteJsonFileUtils readWriteJsonFileUtils;
 
-    public Mega645DetailAsync(Mega645AsyncCallback callback) {
+    public Mega645DetailAsync(Context context, Mega645AsyncCallback callback) {
         this.callback = callback;
+        readWriteJsonFileUtils = new ReadWriteJsonFileUtils(context);
     }
 
     @Override
@@ -42,12 +47,12 @@ public class    Mega645DetailAsync extends AsyncTask<String, Void, Mega645Previo
             Document document = Jsoup.connect(strings[0]).timeout(Config.REQUEST_TIME_OUT).get();
             Element root = document.select(NEWS_PAGE).first();
 
-            if (root != null){
+
                 String thoiGianQuayThuong = root.select(GET_DATE_TIME_MEGA_645).text();
                 int indexDash = thoiGianQuayThuong.indexOf("|");
-                String kyQuayThuong = thoiGianQuayThuong.substring(0,3).trim() +" "+
-                        thoiGianQuayThuong.substring(indexDash-6, indexDash).trim();
-                String ngayQuayThuong = thoiGianQuayThuong.substring(thoiGianQuayThuong.length()-11).trim();
+                String kyQuayThuong = thoiGianQuayThuong.substring(0, 3).trim() + " " +
+                        thoiGianQuayThuong.substring(indexDash - 6, indexDash).trim();
+                String ngayQuayThuong = thoiGianQuayThuong.substring(thoiGianQuayThuong.length() - 11).trim();
                 String soTienJackpot = root.select(GET_SO_TIEN_GIAI_JACKPOT).text();
 
                 Element table = root.select(GET_TABLE_GIAI_THUONG).first();
@@ -56,12 +61,13 @@ public class    Mega645DetailAsync extends AsyncTask<String, Void, Mega645Previo
                 mega645Prizes.addAll(getContentTable(table));
 
                 mega645Previous = new Mega645Previous(kyQuayThuong, ngayQuayThuong, "null", soTienJackpot, mega645Prizes);
-            }
 
+            readWriteJsonFileUtils.createJsonFileData(NAME_DETAIL_MEGA645,new Gson().toJson(mega645Previous));
             return mega645Previous;
         } catch (IOException e) {
             e.printStackTrace();
-            mega645Previous = new Mega645Previous("", "", "", "", mega645Prizes);
+           // mega645Previous = new Mega645Previous("", "", "", "", mega645Prizes);
+            mega645Previous = new Gson().fromJson(NAME_DETAIL_MEGA645,Mega645Previous.class);
             return mega645Previous;
         }
     }
@@ -86,6 +92,7 @@ public class    Mega645DetailAsync extends AsyncTask<String, Void, Mega645Previo
 
         }
     }
+
     private ArrayList<Mega645Prize> getContentTable(Element table) {
         ArrayList<Mega645Prize> mega645Prizes = new ArrayList<>();
         Elements mega = table.select(GET_VALUE_TABLE);

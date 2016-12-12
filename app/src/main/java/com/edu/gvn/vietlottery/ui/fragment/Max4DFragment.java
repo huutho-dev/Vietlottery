@@ -1,5 +1,6 @@
 package com.edu.gvn.vietlottery.ui.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -54,8 +55,8 @@ public class Max4DFragment extends Fragment implements Max4DCurrentAsync.Max4DCu
         MobileAds.initialize(getContext(), getResources().getString(R.string.banner_id));
     }
 
-    public void requestData(){
-        Max4DCurrentAsync max4DCurrentAsync = new Max4DCurrentAsync(this);
+    public void requestData(Context context) {
+        Max4DCurrentAsync max4DCurrentAsync = new Max4DCurrentAsync(context, this);
         max4DCurrentAsync.execute(Config.VIETLOTT_HOME);
     }
 
@@ -156,7 +157,7 @@ public class Max4DFragment extends Fragment implements Max4DCurrentAsync.Max4DCu
 
     private void setDataView(Max4DCurrent max4DCurrent) {
 
-        if (max4DCurrent !=null){
+        if (max4DCurrent != null) {
             kiQuayThuong.setText(max4DCurrent.max4dPrize.kyQuayThuong);
             ngayQuayThuong.setText(max4DCurrent.max4dPrize.ngayQuayThuong);
 
@@ -237,12 +238,17 @@ public class Max4DFragment extends Fragment implements Max4DCurrentAsync.Max4DCu
                         DateUtils.MINUTE_IN_MILLIS * Integer.parseInt(myDateTime[2]) +
                         DateUtils.SECOND_IN_MILLIS * Integer.parseInt(myDateTime[3]);
 
+      if (mCountDownTimer != null){
+          mCountDownTimer.cancel();
+          mCountDownTimer=null;
+      }
         mCountDownTimer = new CountDownTimer(mInitialTime, 1000) {
             StringBuilder time = new StringBuilder();
 
             @Override
             public void onFinish() {
                 //mTextView.setText("Times Up!");
+
             }
 
             @Override
@@ -250,34 +256,49 @@ public class Max4DFragment extends Fragment implements Max4DCurrentAsync.Max4DCu
                 time.setLength(0);
 
                 if (millisUntilFinished > DateUtils.DAY_IN_MILLIS) {
-                    long count = millisUntilFinished / DateUtils.DAY_IN_MILLIS;
-                    time.append(count).append(":");
-                    millisUntilFinished %= DateUtils.DAY_IN_MILLIS;
+//                    long count = millisUntilFinished / DateUtils.DAY_IN_MILLIS;
+//                    time.append(count).append(":");
+//                    millisUntilFinished %= DateUtils.DAY_IN_MILLIS;
+
+                    long day = millisUntilFinished / 86400000;
+                    long hour = (millisUntilFinished - day * 86400000) / 3600000;
+                    long minute = (millisUntilFinished - day * 86400000L - hour * 3600000L) / 60000;
+                    long second = (millisUntilFinished - day * 86400000L - hour * 3600000L - minute * 60000) / 1000;
+
+                    ngay.setText(day + "");
+                    gio.setText(hour + "");
+                    phut.setText(minute + "");
+                    giay.setText(second + "");
+
                 } else {
-                    time.append("00").append(":");
+                    // time.append("00").append(":");
+                    ngay.setText("00");
+                    gio.setText("00");
+                    phut.setText("00");
+                    giay.setText("00");
                 }
 
-                time.append(DateUtils.formatElapsedTime(Math.round(millisUntilFinished / 1000d)));
-
-                ngay.setText("00");
-                gio.setText("00");
-                phut.setText("00");
-                giay.setText("00");
-
-                String[] remain = time.toString().split(":");
-                if (remain.length == 4) {
-                    ngay.setText(remain[0]);
-                    gio.setText(remain[1]);
-                    phut.setText(remain[2]);
-                    giay.setText(remain[3]);
-                } else if (remain.length == 3) {
-                    gio.setText(remain[0]);
-                    phut.setText(remain[1]);
-                    giay.setText(remain[2]);
-                } else {
-                    phut.setText(remain[0]);
-                    giay.setText(remain[1]);
-                }
+//                time.append(DateUtils.formatElapsedTime(Math.round(millisUntilFinished / 1000d)));
+//
+//                ngay.setText("00");
+//                gio.setText("00");
+//                phut.setText("00");
+//                giay.setText("00");
+//
+//                String[] remain = time.toString().split(":");
+//                if (remain.length == 4) {
+//                    ngay.setText(remain[0]);
+//                    gio.setText(remain[1]);
+//                    phut.setText(remain[2]);
+//                    giay.setText(remain[3]);
+//                } else if (remain.length == 3) {
+//                    gio.setText(remain[0]);
+//                    phut.setText(remain[1]);
+//                    giay.setText(remain[2]);
+//                } else {
+//                    phut.setText(remain[0]);
+//                    giay.setText(remain[1]);
+//                }
             }
         }.start();
     }
@@ -300,7 +321,7 @@ public class Max4DFragment extends Fragment implements Max4DCurrentAsync.Max4DCu
             public void onAdClosed() {
                 try {
                     getActivity().startActivity(new Intent(getActivity(), PreviousMax4DActivity.class));
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 

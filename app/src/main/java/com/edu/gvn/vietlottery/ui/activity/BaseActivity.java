@@ -44,8 +44,6 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
-
     private void createDialog() {
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

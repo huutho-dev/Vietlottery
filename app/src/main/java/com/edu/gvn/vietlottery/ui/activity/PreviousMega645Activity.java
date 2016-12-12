@@ -108,7 +108,7 @@ public class PreviousMega645Activity extends BaseActivity implements RecyclerIte
      * Phương thức lấy data từ VietLott
      */
     private void retriveData() {
-        MegaListPreviousAsync request = new MegaListPreviousAsync(new MegaListPreviousAsync.MegaListPreviousAsyncCallback() {
+        MegaListPreviousAsync request = new MegaListPreviousAsync(this, new MegaListPreviousAsync.MegaListPreviousAsyncCallback() {
             @Override
             public void callBack(ArrayList<MegaListPrevious> datas) {
                 if (datas != null) {

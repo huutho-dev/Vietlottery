@@ -1,9 +1,13 @@
 package com.edu.gvn.vietlottery.network;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import com.edu.gvn.vietlottery.Config;
 import com.edu.gvn.vietlottery.entity.sub.Max4dPrize;
+import com.edu.gvn.vietlottery.utils.ReadWriteJsonFileUtils;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -13,8 +17,10 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class Max4dPreviousAsync extends AsyncTask<String, Void, ArrayList<Max4dPrize>> {
+    private static final String NAME_MAX4D_PREVIOUS = "Previous_max4d";
     private static final String ROOT_TABLE = "div.result.clearfix.table-responsive > table.table.table-striped > tbody > tr";
     private static final String GET_NGAY_QUAY_THUONG = "div.info-result-game";
     private static final String GET_RESULT_MAX4 = "ul.result-max4d";
@@ -26,9 +32,11 @@ public class Max4dPreviousAsync extends AsyncTask<String, Void, ArrayList<Max4dP
     }
 
     private Max4dPreviousCallback callback;
+    private ReadWriteJsonFileUtils readWriteJsonFileUtils;
 
-    public Max4dPreviousAsync(Max4dPreviousCallback callback) {
+    public Max4dPreviousAsync(Context context, Max4dPreviousCallback callback) {
         this.callback = callback;
+        readWriteJsonFileUtils = new ReadWriteJsonFileUtils(context);
     }
 
     @Override
@@ -39,7 +47,7 @@ public class Max4dPreviousAsync extends AsyncTask<String, Void, ArrayList<Max4dP
             Document document = Jsoup.connect(strings[0]).timeout(Config.REQUEST_TIME_OUT).get();
             Elements root = document.select(ROOT_TABLE);
 
-            if (root != null) {
+
                 int itemSize = root.size();
 
                 for (int i = 0; i < itemSize; i++) {
@@ -62,14 +70,16 @@ public class Max4dPreviousAsync extends AsyncTask<String, Void, ArrayList<Max4dP
                             giaiNhi1, giaiNhi2, giaiBa1, giaiBa2, giaiBa3, giaiKK1, giaiKK2);
 
                     listPrize.add(max4dPrize);
-                }
+
             }
+            readWriteJsonFileUtils.createJsonFileData(NAME_MAX4D_PREVIOUS,new Gson().toJson(listPrize));
             Collections.reverse(listPrize);
             return listPrize;
         } catch (IOException e) {
-            e.printStackTrace();
+            listPrize = new Gson().fromJson(readWriteJsonFileUtils.readJsonFileData(NAME_MAX4D_PREVIOUS),new TypeToken<List<Max4dPrize>>(){}.getType());
+            Collections.reverse(listPrize);
+            return listPrize ;
         }
-        return null;
     }
 
     @Override

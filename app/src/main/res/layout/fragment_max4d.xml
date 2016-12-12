@@ -123,8 +123,8 @@
                 style="@style/TextItemLottery"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/xxhdpi_8dp"
-                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/xxhdpi_4dp"
+                android:layout_weight="1.2"
                 android:gravity="start"
                 android:text="@string/giai_nhat" />
 
@@ -133,7 +133,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:gravity="end"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingRight="@dimen/xxhdpi_8dp">
 
                 <TextView
                     android:id="@+id/txt_giai_nhat_ball1"
@@ -192,8 +193,8 @@
                 style="@style/TextItemLottery"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/xxhdpi_8dp"
-                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/xxhdpi_4dp"
+                android:layout_weight="1.2"
                 android:gravity="start"
                 android:text="@string/giai_nhi" />
 
@@ -201,7 +202,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingRight="@dimen/xxhdpi_8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -289,14 +291,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingRight="@dimen/xxhdpi_8dp">
 
             <TextView
                 style="@style/TextItemLottery"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/xxhdpi_8dp"
-                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/xxhdpi_4dp"
+                android:layout_weight="1.2"
                 android:gravity="start"
                 android:text="@string/giai_ba" />
 
@@ -425,8 +428,8 @@
                 style="@style/TextItemLottery"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/xxhdpi_8dp"
-                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/xxhdpi_4dp"
+                android:layout_weight="1.2"
                 android:gravity="start"
                 android:text="@string/giai_khuyen_khich_1" />
 
@@ -435,7 +438,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:gravity="end"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingRight="@dimen/xxhdpi_8dp">
 
                 <TextView
                     android:id="@+id/txt_giai_kk_1_ball2"
@@ -489,8 +493,8 @@
                 style="@style/TextItemLottery"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/xxhdpi_8dp"
-                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/xxhdpi_4dp"
+                android:layout_weight="1.2"
                 android:gravity="start"
                 android:text="@string/giai_khuyen_khich_2" />
 
@@ -499,7 +503,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:gravity="end"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingRight="@dimen/xxhdpi_8dp">
 
                 <TextView
                     android:id="@+id/txt_giai_kk_2_ball3"

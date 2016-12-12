@@ -42,7 +42,7 @@ public class PreviousMax4DActivity extends BaseActivity implements Max4dPrevious
         listMax4d.setLayoutManager(linearManager);
         listMax4d.setAdapter(mAdapter);
 
-        Max4dPreviousAsync async = new Max4dPreviousAsync(this);
+        Max4dPreviousAsync async = new Max4dPreviousAsync(this,this);
         async.execute(Config.VIETLOTT_PREVIOUS_MAX);
     }
 

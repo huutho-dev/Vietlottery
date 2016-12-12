@@ -68,7 +68,7 @@ public class Mega645DetailActivity extends BaseActivity implements Mega645Detail
 
         mDatas = new ArrayList<>();
         linearManager = new LinearLayoutManager(this);
-        Mega645DetailAsync megaListPrevious = new Mega645DetailAsync(this);
+        Mega645DetailAsync megaListPrevious = new Mega645DetailAsync(this,this);
         megaListPrevious.execute(Config.VIETLOTT_DETAIL_MEGA + detail.date);
 
         mAdapter = new Mega645CurrentAdapter(this, mDatas);

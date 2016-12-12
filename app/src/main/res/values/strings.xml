@@ -23,6 +23,10 @@
     <string name="giai_khuyen_khich_1">Khuyến khích 1</string>
     <string name="giai_khuyen_khich_2">Khuyến khích 2</string>
 
+    <string name="trung_khop">Trùng khớp</string>
+    <string name="so_luong_giai">Số lượng giải</string>
+    <string name="gia_tri_giai">Giá trị giải (đồng)</string>
+
     <!--title activity-->
     <string name="title_activity_list_previous_mega">Các lần quay trước Mega 6/45</string>
     <string name="title_activity_detail_mega">Jackpot</string>
@@ -37,5 +41,6 @@
 
     <string name="banner_id">ca-app-pub-6092828069522249/5180068013</string>
     <string name="banner_full_id">ca-app-pub-6092828069522249/6796402015</string>
+
 
 </resources>

@@ -1,9 +1,13 @@
 package com.edu.gvn.vietlottery.network;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import com.edu.gvn.vietlottery.Config;
 import com.edu.gvn.vietlottery.entity.MegaListPrevious;
+import com.edu.gvn.vietlottery.utils.ReadWriteJsonFileUtils;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -12,14 +16,18 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MegaListPreviousAsync extends AsyncTask<String, Void, ArrayList<MegaListPrevious>> {
+    private static final String NAME_MEGA_LIST_PREVIOS = "Previos_mega_name";
     private static final String GET_LIST_PREVIOUS = "div.result.clearfix.table-responsive > table.table.table-striped > tbody > tr";
 
     private MegaListPreviousAsyncCallback callBack;
+    private ReadWriteJsonFileUtils readWriteJsonFileUtils;
 
-    public MegaListPreviousAsync(MegaListPreviousAsyncCallback callBack) {
+    public MegaListPreviousAsync(Context context, MegaListPreviousAsyncCallback callBack) {
         this.callBack = callBack;
+        readWriteJsonFileUtils = new ReadWriteJsonFileUtils(context);
     }
 
     @Override
@@ -29,23 +37,25 @@ public class MegaListPreviousAsync extends AsyncTask<String, Void, ArrayList<Meg
             Document document = Jsoup.connect(strings[0]).timeout(Config.REQUEST_TIME_OUT).get();
             Elements root = document.select(GET_LIST_PREVIOUS);
 
-            if (root != null){
-                int listSize = root.size();
-                for (int i = 0; i < listSize; i++) {
-                    Element item = root.get(i);
-                    String link = item.select("td").get(0).select("a").attr("href");
-                    String date = item.select("td").get(0).select("a").text();
-                    String result = item.select("td").get(1).select("span").text();
 
-                    datas.add(new MegaListPrevious(link, date, result));
-                }
+            int listSize = root.size();
+            for (int i = 0; i < listSize; i++) {
+                Element item = root.get(i);
+                String link = item.select("td").get(0).select("a").attr("href");
+                String date = item.select("td").get(0).select("a").text();
+                String result = item.select("td").get(1).select("span").text();
+
+                datas.add(new MegaListPrevious(link, date, result));
             }
 
+            readWriteJsonFileUtils.createJsonFileData(NAME_MEGA_LIST_PREVIOS, new Gson().toJson(datas));
             return datas;
         } catch (IOException e) {
             e.printStackTrace();
+            datas = new Gson().fromJson(readWriteJsonFileUtils.readJsonFileData(NAME_MEGA_LIST_PREVIOS), new TypeToken<List<MegaListPrevious>>() {
+            }.getType());
+            return datas;
         }
-        return datas;
     }
 
     @Override

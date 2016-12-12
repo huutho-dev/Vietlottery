@@ -1,10 +1,13 @@
 package com.edu.gvn.vietlottery.network;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import com.edu.gvn.vietlottery.Config;
 import com.edu.gvn.vietlottery.entity.Max4DCurrent;
 import com.edu.gvn.vietlottery.entity.sub.Max4dPrize;
+import com.edu.gvn.vietlottery.utils.ReadWriteJsonFileUtils;
+import com.google.gson.Gson;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -14,6 +17,7 @@ import java.io.IOException;
 
 
 public class Max4DCurrentAsync extends AsyncTask<String, Void, Max4DCurrent> {
+    private static final String NAME_MAX4D_CURRENT = "Current_max4d";
     private static final String ROOT_TAB_MAX_4D = "div#max-4d";
     private static final String GET_TIME_RESULT = "div#result-games-max4d >  div.box-result-detail > p.time-result";
     private static final String GET_BOX_RESULT = "div#result-games-max4d > div.box-result-detail > ul.result-max4d";
@@ -26,9 +30,11 @@ public class Max4DCurrentAsync extends AsyncTask<String, Void, Max4DCurrent> {
     }
 
     private Max4DCurrentAsyncCallback callback;
+    private ReadWriteJsonFileUtils readWriteJsonFileUtils;
 
-    public Max4DCurrentAsync(Max4DCurrentAsyncCallback callback) {
+    public Max4DCurrentAsync(Context context, Max4DCurrentAsyncCallback callback) {
         this.callback = callback;
+        readWriteJsonFileUtils = new ReadWriteJsonFileUtils(context);
     }
 
 
@@ -40,7 +46,6 @@ public class Max4DCurrentAsync extends AsyncTask<String, Void, Max4DCurrent> {
             Document document = Jsoup.connect(strings[0]).timeout(Config.REQUEST_TIME_OUT).get();
             Element root = document.select(ROOT_TAB_MAX_4D).first();
 
-            if (root != null){
                 String thoiGianQuayThuong = root.select(GET_TIME_RESULT).get(0).text().trim();    //Kỳ quay thưởng #00006 | Ngày quay thưởng 01/12/2016
                 int indexDash = thoiGianQuayThuong.indexOf("|");
                 String kyQuayThuong = thoiGianQuayThuong.substring(0, 3).trim() + " " +
@@ -92,14 +97,14 @@ public class Max4DCurrentAsync extends AsyncTask<String, Void, Max4DCurrent> {
                 max4DCurrent = new Max4DCurrent(max4dPrize, soLuongGiaiNhat, soLuongGiaiNhi,
                         soLuongGiaiBa, soLuongGiaiKK1, soLuongGiaiKK2,
                         giaTriGiaiNhat, giaTriGiaiNhi, giaTriGiaiBa, giaTriGiaiKK1, giaTriGiaiKK2, currentTime, endTime);
-            }
 
+            readWriteJsonFileUtils.createJsonFileData(NAME_MAX4D_CURRENT, new Gson().toJson(max4DCurrent));
             return max4DCurrent;
         } catch (IOException e) {
             e.printStackTrace();
+            max4DCurrent = new Gson().fromJson(readWriteJsonFileUtils.readJsonFileData(NAME_MAX4D_CURRENT), Max4DCurrent.class);
+            return max4DCurrent;
         }
-
-        return null;
     }
 
     @Override
