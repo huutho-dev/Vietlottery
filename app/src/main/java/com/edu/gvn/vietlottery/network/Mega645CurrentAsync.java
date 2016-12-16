@@ -51,7 +51,6 @@ public class Mega645CurrentAsync extends AsyncTask<String, Void, Mega645Current>
         Mega645Previous mega645Previous;
 
         try {
-
             String timeScrip = "";
             Document document = Jsoup.connect(strings[0]).timeout(Config.REQUEST_TIME_OUT).get();
             Element root = document.select(TAB_CONTENT_MEGA_645).first();

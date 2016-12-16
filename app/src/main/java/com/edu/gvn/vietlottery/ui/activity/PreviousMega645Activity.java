@@ -111,15 +111,19 @@ public class PreviousMega645Activity extends BaseActivity implements RecyclerIte
         MegaListPreviousAsync request = new MegaListPreviousAsync(this, new MegaListPreviousAsync.MegaListPreviousAsyncCallback() {
             @Override
             public void callBack(ArrayList<MegaListPrevious> datas) {
-                if (datas != null) {
+                try {
+                    if (datas != null) {
 
-                    if (mDatas.size() != 0) {
-                        mDatas.remove(mDatas.size() - 1);
+                        if (mDatas.size() != 0) {
+                            mDatas.remove(mDatas.size() - 1);
+                        }
+
+                        mDatas.addAll(datas);
+                        mAdapter.notifyDataSetChanged();
+                        loading = true;
                     }
-
-                    mDatas.addAll(datas);
-                    mAdapter.notifyDataSetChanged();
-                    loading = true;
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });

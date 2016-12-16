@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class Mega645DetailActivity extends BaseActivity implements Mega645DetailAsync.Mega645AsyncCallback {
     public static final String BUNDLE_MEGA = "bundle.lucky";
 
-    private Toolbar toolbar ;
+    private Toolbar toolbar;
     private RecyclerView viewDetail;
     private TextView kyQuayThuong, ngayQuayThuong;
     private TextView so1, so2, so3, so4, so5, so6;
@@ -57,24 +57,25 @@ public class Mega645DetailActivity extends BaseActivity implements Mega645Detail
         so5 = (TextView) findViewById(R.id.txt_ball_5);
         so6 = (TextView) findViewById(R.id.txt_ball_6);
 
-        String[] arrLuckyNumber =  SequenceUtils.getInstance().sliptSequence(detail.result," ");
+        String[] arrLuckyNumber = SequenceUtils.getInstance().sliptSequence(detail.result, " ");
 
-        setTextAndChangeColorBall(so1,arrLuckyNumber[0]);
-        setTextAndChangeColorBall(so2,arrLuckyNumber[1]);
-        setTextAndChangeColorBall(so3,arrLuckyNumber[2]);
-        setTextAndChangeColorBall(so4,arrLuckyNumber[3]);
-        setTextAndChangeColorBall(so5,arrLuckyNumber[4]);
-        setTextAndChangeColorBall(so6,arrLuckyNumber[5]);
+        setTextAndChangeColorBall(so1, arrLuckyNumber[0]);
+        setTextAndChangeColorBall(so2, arrLuckyNumber[1]);
+        setTextAndChangeColorBall(so3, arrLuckyNumber[2]);
+        setTextAndChangeColorBall(so4, arrLuckyNumber[3]);
+        setTextAndChangeColorBall(so5, arrLuckyNumber[4]);
+        setTextAndChangeColorBall(so6, arrLuckyNumber[5]);
 
         mDatas = new ArrayList<>();
         linearManager = new LinearLayoutManager(this);
-        Mega645DetailAsync megaListPrevious = new Mega645DetailAsync(this,this);
+        Mega645DetailAsync megaListPrevious = new Mega645DetailAsync(this, this);
         megaListPrevious.execute(Config.VIETLOTT_DETAIL_MEGA + detail.date);
 
         mAdapter = new Mega645CurrentAdapter(this, mDatas);
         viewDetail.setLayoutManager(linearManager);
         viewDetail.setAdapter(mAdapter);
     }
+
     private void setTextAndChangeColorBall(TextView textView, String values) {
         textView.setText(values);
 
@@ -99,25 +100,32 @@ public class Mega645DetailActivity extends BaseActivity implements Mega645Detail
             textView.setBackground(getResources().getDrawable(R.drawable.ball_pupple));
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) onBackPressed();
-        return true ;
+        return true;
     }
 
 
     @Override
     public void callBack(Mega645Previous data) {
-        if (mDatas.size() != 0 && mDatas != null) {
-            mDatas.clear();
+        try {
+            if (data != null) {
+                if (mDatas.size() != 0 && mDatas != null) {
+                    mDatas.clear();
+                }
+
+                mDatas.addAll(data.mega645Prizes);
+                mAdapter.notifyDataSetChanged();
+
+                kyQuayThuong.setText(data.kyQuayThuong);
+                ngayQuayThuong.setText(data.ngayQuayThuong);
+                giaTriGiaiThuong.setText(data.soTienJackpot);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        mDatas.addAll(data.mega645Prizes);
-        mAdapter.notifyDataSetChanged();
-
-        kyQuayThuong.setText(data.kyQuayThuong);
-        ngayQuayThuong.setText(data.ngayQuayThuong);
-        giaTriGiaiThuong.setText(data.soTienJackpot);
 
     }
 }

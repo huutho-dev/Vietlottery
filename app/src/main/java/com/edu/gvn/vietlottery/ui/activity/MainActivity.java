@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
+import com.codemybrainsout.ratingdialog.RatingDialog;
 import com.edu.gvn.vietlottery.R;
 import com.edu.gvn.vietlottery.adapter.LotteryPagerAdapter;
 import com.edu.gvn.vietlottery.broadcast.NotifycationPublisher;
@@ -30,21 +31,24 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTabLayout = (TabLayout) findViewById(R.id.tab_lottery);
-        mViewPager = (ViewPager) findViewById(R.id.viewpager_lottery);
-
-        maxFragment = new Max4DFragment();
-        megaFragment = new Mega645Fragment();
-
-        mLottAdapter = new LotteryPagerAdapter(this, getSupportFragmentManager());
-        mLottAdapter.addFragment(megaFragment, getResources().getString(R.string.tab_mega));
-        mLottAdapter.addFragment(maxFragment, getResources().getString(R.string.tab_max));
-
-        mViewPager.setAdapter(mLottAdapter);
-        mTabLayout.setupWithViewPager(mViewPager);
+        showDialog();
+//        mTabLayout = (TabLayout) findViewById(R.id.tab_lottery);
+//        mViewPager = (ViewPager) findViewById(R.id.viewpager_lottery);
+//
+//        maxFragment = new Max4DFragment();
+//        megaFragment = new Mega645Fragment();
+//
+//        mLottAdapter = new LotteryPagerAdapter(this, getSupportFragmentManager());
+//        mLottAdapter.addFragment(megaFragment, getResources().getString(R.string.tab_mega));
+//        mLottAdapter.addFragment(maxFragment, getResources().getString(R.string.tab_max));
+//
+//        mViewPager.setAdapter(mLottAdapter);
+//        mTabLayout.setupWithViewPager(mViewPager);
 
         //set Push notify
         scheduleNotify(18, 0, 0);
+
+
     }
 
     /**
@@ -74,17 +78,44 @@ public class MainActivity extends BaseActivity {
         alarmManager.set(AlarmManager.RTC_WAKEUP, tringgerTime, pendingIntent);
     }
 
+    private void showDialog() {
+
+
+        final RatingDialog ratingDialog = new RatingDialog.Builder(this)
+                .icon(getResources().getDrawable(R.drawable.ball_red))
+                .threshold(3)
+                .title("How was your experience with us?")
+                .titleTextColor(R.color.black)
+                .positiveButtonText("Not Now")
+                .negativeButtonText("Never")
+                .positiveButtonTextColor(R.color.white)
+                .negativeButtonTextColor(R.color.grey_500)
+                .formTitle("Submit Feedback")
+                .formHint("Tell us where we can improve")
+                .formSubmitText("Submit")
+                .formCancelText("Cancel")
+                .ratingBarColor(R.color.accent)
+                .positiveButtonBackgroundColor(R.color.accent)
+                .negativeButtonBackgroundColor(R.color.accent)
+                .formCancelText("Cancel")
+                .build();
+
+
+
+        ratingDialog.show();
+    }
+
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        if (isNetworkConnection()) {
-            maxFragment.requestData(MainActivity.this);
-            megaFragment.requestData(MainActivity.this);
-        } else {
-            checkInternet();
-        }
+//        if (isNetworkConnection()) {
+//            maxFragment.requestData(MainActivity.this);
+//            megaFragment.requestData(MainActivity.this);
+//        } else {
+//            checkInternet();
+//        }
 
     }
 }

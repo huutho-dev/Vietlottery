@@ -82,7 +82,11 @@ public class Max4DFragment extends Fragment implements Max4DCurrentAsync.Max4DCu
     @Override
     public void callBack(Max4DCurrent max4DCurrent) {
         if (max4DCurrent != null)
-            setDataView(max4DCurrent);
+            try {
+                setDataView(max4DCurrent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
     }
 
     private void initView(View view) {
@@ -158,54 +162,54 @@ public class Max4DFragment extends Fragment implements Max4DCurrentAsync.Max4DCu
     private void setDataView(Max4DCurrent max4DCurrent) {
 
         if (max4DCurrent != null) {
-            kiQuayThuong.setText(max4DCurrent.max4dPrize.kyQuayThuong);
-            ngayQuayThuong.setText(max4DCurrent.max4dPrize.ngayQuayThuong);
+            if (max4DCurrent.max4dPrize != null) {
+                kiQuayThuong.setText(max4DCurrent.max4dPrize.kyQuayThuong);
+                ngayQuayThuong.setText(max4DCurrent.max4dPrize.ngayQuayThuong);
+                String[] giaiNhat = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiNhat, " ");
+                giaiNhatSo1.setText(giaiNhat[0]);
+                giaiNhatSo2.setText(giaiNhat[1]);
+                giaiNhatSo3.setText(giaiNhat[2]);
+                giaiNhatSo4.setText(giaiNhat[3]);
 
-            String[] giaiNhat = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiNhat, " ");
-            giaiNhatSo1.setText(giaiNhat[0]);
-            giaiNhatSo2.setText(giaiNhat[1]);
-            giaiNhatSo3.setText(giaiNhat[2]);
-            giaiNhatSo4.setText(giaiNhat[3]);
+                String[] giaiNhi1 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiNhi1, " ");
+                giaiNhi1So1.setText(giaiNhi1[0]);
+                giaiNhi1So2.setText(giaiNhi1[1]);
+                giaiNhi1So3.setText(giaiNhi1[2]);
+                giaiNhi1So4.setText(giaiNhi1[3]);
 
-            String[] giaiNhi1 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiNhi1, " ");
-            giaiNhi1So1.setText(giaiNhi1[0]);
-            giaiNhi1So2.setText(giaiNhi1[1]);
-            giaiNhi1So3.setText(giaiNhi1[2]);
-            giaiNhi1So4.setText(giaiNhi1[3]);
+                String[] giaiNhi2 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiNhi2, " ");
+                giaiNhi2So1.setText(giaiNhi2[0]);
+                giaiNhi2So2.setText(giaiNhi2[1]);
+                giaiNhi2So3.setText(giaiNhi2[2]);
+                giaiNhi2So4.setText(giaiNhi2[3]);
 
-            String[] giaiNhi2 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiNhi2, " ");
-            giaiNhi2So1.setText(giaiNhi2[0]);
-            giaiNhi2So2.setText(giaiNhi2[1]);
-            giaiNhi2So3.setText(giaiNhi2[2]);
-            giaiNhi2So4.setText(giaiNhi2[3]);
+                String[] giaiBa1 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiBa1, " ");
+                giaiBa1So1.setText(giaiBa1[0]);
+                giaiBa1So2.setText(giaiBa1[1]);
+                giaiBa1So3.setText(giaiBa1[2]);
+                giaiBa1So4.setText(giaiBa1[3]);
 
-            String[] giaiBa1 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiBa1, " ");
-            giaiBa1So1.setText(giaiBa1[0]);
-            giaiBa1So2.setText(giaiBa1[1]);
-            giaiBa1So3.setText(giaiBa1[2]);
-            giaiBa1So4.setText(giaiBa1[3]);
+                String[] giaiBa2 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiBa2, " ");
+                giaiBa2So1.setText(giaiBa2[0]);
+                giaiBa2So2.setText(giaiBa2[1]);
+                giaiBa2So3.setText(giaiBa2[2]);
+                giaiBa2So4.setText(giaiBa2[3]);
 
-            String[] giaiBa2 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiBa2, " ");
-            giaiBa2So1.setText(giaiBa2[0]);
-            giaiBa2So2.setText(giaiBa2[1]);
-            giaiBa2So3.setText(giaiBa2[2]);
-            giaiBa2So4.setText(giaiBa2[3]);
+                String[] giaiBa3 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiBa3, " ");
+                giaiBa3So1.setText(giaiBa3[0]);
+                giaiBa3So2.setText(giaiBa3[1]);
+                giaiBa3So3.setText(giaiBa3[2]);
+                giaiBa3So4.setText(giaiBa3[3]);
 
-            String[] giaiBa3 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiBa3, " ");
-            giaiBa3So1.setText(giaiBa3[0]);
-            giaiBa3So2.setText(giaiBa3[1]);
-            giaiBa3So3.setText(giaiBa3[2]);
-            giaiBa3So4.setText(giaiBa3[3]);
+                String[] kk1 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiKK1, " ");
+                giaiKK1So2.setText(kk1[1]);
+                giaiKK1So3.setText(kk1[2]);
+                giaiKK1So4.setText(kk1[3]);
 
-            String[] kk1 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiKK1, " ");
-            giaiKK1So2.setText(kk1[1]);
-            giaiKK1So3.setText(kk1[2]);
-            giaiKK1So4.setText(kk1[3]);
-
-            String[] kk2 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiKK2, " ");
-            giaiKK2So3.setText(kk2[2]);
-            giaiKK2So4.setText(kk2[3]);
-
+                String[] kk2 = SequenceUtils.getInstance().sliptSequence(max4DCurrent.max4dPrize.giaiKK2, " ");
+                giaiKK2So3.setText(kk2[2]);
+                giaiKK2So4.setText(kk2[3]);
+            }
             soLuongGiaiNhat.setText(max4DCurrent.soLuongGiaiNhat);
             soLuongGiaiNhi.setText(max4DCurrent.soLuongGiaiNhi);
             soLuongGiaiBa.setText(max4DCurrent.soLuongGiaiBa);
@@ -230,77 +234,53 @@ public class Max4DFragment extends Fragment implements Max4DCurrentAsync.Max4DCu
     }
 
     private void countTime(String remain, final TextView ngay, final TextView gio, final TextView phut, final TextView giay) {
-        String[] myDateTime = remain.split("-");
+        try {
+            String[] myDateTime = remain.split("-");
 
-        long mInitialTime =
-                DateUtils.DAY_IN_MILLIS * Integer.parseInt(myDateTime[0]) +
-                        DateUtils.HOUR_IN_MILLIS * Integer.parseInt(myDateTime[1]) +
-                        DateUtils.MINUTE_IN_MILLIS * Integer.parseInt(myDateTime[2]) +
-                        DateUtils.SECOND_IN_MILLIS * Integer.parseInt(myDateTime[3]);
+            long mInitialTime =
+                    DateUtils.DAY_IN_MILLIS * Integer.parseInt(myDateTime[0]) +
+                            DateUtils.HOUR_IN_MILLIS * Integer.parseInt(myDateTime[1]) +
+                            DateUtils.MINUTE_IN_MILLIS * Integer.parseInt(myDateTime[2]) +
+                            DateUtils.SECOND_IN_MILLIS * Integer.parseInt(myDateTime[3]);
 
-      if (mCountDownTimer != null){
-          mCountDownTimer.cancel();
-          mCountDownTimer=null;
-      }
-        mCountDownTimer = new CountDownTimer(mInitialTime, 1000) {
-            StringBuilder time = new StringBuilder();
-
-            @Override
-            public void onFinish() {
-                //mTextView.setText("Times Up!");
-
+            if (mCountDownTimer != null) {
+                mCountDownTimer.cancel();
+                mCountDownTimer = null;
             }
+            mCountDownTimer = new CountDownTimer(mInitialTime, 1000) {
+                @Override
+                public void onFinish() {
+                    //mTextView.setText("Times Up!");
 
-            @Override
-            public void onTick(long millisUntilFinished) {
-                time.setLength(0);
-
-                if (millisUntilFinished > DateUtils.DAY_IN_MILLIS) {
-//                    long count = millisUntilFinished / DateUtils.DAY_IN_MILLIS;
-//                    time.append(count).append(":");
-//                    millisUntilFinished %= DateUtils.DAY_IN_MILLIS;
-
-                    long day = millisUntilFinished / 86400000;
-                    long hour = (millisUntilFinished - day * 86400000) / 3600000;
-                    long minute = (millisUntilFinished - day * 86400000L - hour * 3600000L) / 60000;
-                    long second = (millisUntilFinished - day * 86400000L - hour * 3600000L - minute * 60000) / 1000;
-
-                    ngay.setText(day + "");
-                    gio.setText(hour + "");
-                    phut.setText(minute + "");
-                    giay.setText(second + "");
-
-                } else {
-                    // time.append("00").append(":");
-                    ngay.setText("00");
-                    gio.setText("00");
-                    phut.setText("00");
-                    giay.setText("00");
                 }
 
-//                time.append(DateUtils.formatElapsedTime(Math.round(millisUntilFinished / 1000d)));
-//
-//                ngay.setText("00");
-//                gio.setText("00");
-//                phut.setText("00");
-//                giay.setText("00");
-//
-//                String[] remain = time.toString().split(":");
-//                if (remain.length == 4) {
-//                    ngay.setText(remain[0]);
-//                    gio.setText(remain[1]);
-//                    phut.setText(remain[2]);
-//                    giay.setText(remain[3]);
-//                } else if (remain.length == 3) {
-//                    gio.setText(remain[0]);
-//                    phut.setText(remain[1]);
-//                    giay.setText(remain[2]);
-//                } else {
-//                    phut.setText(remain[0]);
-//                    giay.setText(remain[1]);
-//                }
-            }
-        }.start();
+                @Override
+                public void onTick(long millisUntilFinished) {
+
+                    if (millisUntilFinished > 0) {
+                        long day = millisUntilFinished / 86400000;
+                        long hour = (millisUntilFinished - day * 86400000) / 3600000;
+                        long minute = (millisUntilFinished - day * 86400000L - hour * 3600000L) / 60000;
+                        long second = (millisUntilFinished - day * 86400000L - hour * 3600000L - minute * 60000) / 1000;
+
+                        ngay.setText(day + "");
+                        gio.setText(hour + "");
+                        phut.setText(minute + "");
+                        giay.setText(second + "");
+                    } else {
+                        ngay.setText("00");
+                        gio.setText("00");
+                        phut.setText("00");
+                        giay.setText("00");
+                    }
+                }
+            }.start();
+        } catch (Exception e) {
+            ngay.setText("00");
+            gio.setText("00");
+            phut.setText("00");
+            giay.setText("00");
+        }
     }
 
     private InterstitialAd createNewIntAd() {

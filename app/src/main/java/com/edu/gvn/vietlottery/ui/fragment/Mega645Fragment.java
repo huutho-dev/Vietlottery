@@ -23,7 +23,6 @@ import com.edu.gvn.vietlottery.entity.sub.Mega645Prize;
 import com.edu.gvn.vietlottery.network.Mega645CurrentAsync;
 import com.edu.gvn.vietlottery.ui.activity.PreviousMega645Activity;
 import com.edu.gvn.vietlottery.utils.DateTimeUtils;
-import com.edu.gvn.vietlottery.utils.LogUtils;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -127,29 +126,32 @@ public class Mega645Fragment extends Fragment implements Mega645CurrentAsync.Meg
 
     @Override
     public void callBack(Mega645Current current) {
+        try {
+            if (current != null) {
+                if (current.mega645Previous.soMayMan != null) {
+                    String[] arrLuckyNumber = current.mega645Previous.soMayMan.split(" ");
+                    setTextAndChangeColorBall(so1, arrLuckyNumber[0]);
+                    setTextAndChangeColorBall(so2, arrLuckyNumber[1]);
+                    setTextAndChangeColorBall(so3, arrLuckyNumber[2]);
+                    setTextAndChangeColorBall(so4, arrLuckyNumber[3]);
+                    setTextAndChangeColorBall(so5, arrLuckyNumber[4]);
+                    setTextAndChangeColorBall(so6, arrLuckyNumber[5]);
+                }
 
-        if (current != null) {
-            if (current.mega645Previous.soMayMan != null) {
-                String[] arrLuckyNumber = current.mega645Previous.soMayMan.split(" ");
-                setTextAndChangeColorBall(so1, arrLuckyNumber[0]);
-                setTextAndChangeColorBall(so2, arrLuckyNumber[1]);
-                setTextAndChangeColorBall(so3, arrLuckyNumber[2]);
-                setTextAndChangeColorBall(so4, arrLuckyNumber[3]);
-                setTextAndChangeColorBall(so5, arrLuckyNumber[4]);
-                setTextAndChangeColorBall(so6, arrLuckyNumber[5]);
+                kyQuayThuong.setText(current.mega645Previous.kyQuayThuong);
+                ngayQuayThuong.setText(current.mega645Previous.ngayQuayThuong);
+                giaTriUocTinh.setText(current.giaTriUocTinh);
+
+                datas.clear();
+                datas.addAll(current.mega645Previous.mega645Prizes);
+                mAdapter.notifyDataSetChanged();
+
+                DateTimeUtils dateTimeUtils = new DateTimeUtils();
+                String remain = dateTimeUtils.remainingTime(current.curentTime, current.endTime);
+                countTime(remain, ngay, gio, phut, giay);
             }
-
-            kyQuayThuong.setText(current.mega645Previous.kyQuayThuong);
-            ngayQuayThuong.setText(current.mega645Previous.ngayQuayThuong);
-            giaTriUocTinh.setText(current.giaTriUocTinh);
-
-            datas.clear();
-            datas.addAll(current.mega645Previous.mega645Prizes);
-            mAdapter.notifyDataSetChanged();
-
-            DateTimeUtils dateTimeUtils = new DateTimeUtils();
-            String remain = dateTimeUtils.remainingTime(current.curentTime, current.endTime);
-            countTime(remain, ngay, gio, phut, giay);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -180,54 +182,53 @@ public class Mega645Fragment extends Fragment implements Mega645CurrentAsync.Meg
 
 
     private void countTime(String remain, final TextView ngay, final TextView gio, final TextView phut, final TextView giay) {
+        try {
+            String[] myDateTime = remain.split("-");
 
-        String[] myDateTime = remain.split("-");
+            long mInitialTime =
+                    DateUtils.DAY_IN_MILLIS * Integer.parseInt(myDateTime[0]) +
+                            DateUtils.HOUR_IN_MILLIS * Integer.parseInt(myDateTime[1]) +
+                            DateUtils.MINUTE_IN_MILLIS * Integer.parseInt(myDateTime[2]) +
+                            DateUtils.SECOND_IN_MILLIS * Integer.parseInt(myDateTime[3]);
 
-        LogUtils.v("huutho", remain);
-
-        long mInitialTime =
-                DateUtils.DAY_IN_MILLIS * Integer.parseInt(myDateTime[0]) +
-                        DateUtils.HOUR_IN_MILLIS * Integer.parseInt(myDateTime[1]) +
-                        DateUtils.MINUTE_IN_MILLIS * Integer.parseInt(myDateTime[2]) +
-                        DateUtils.SECOND_IN_MILLIS * Integer.parseInt(myDateTime[3]);
-
-        if (mCountDownTimer != null){
-            mCountDownTimer.cancel();
-            mCountDownTimer=null;
-        }
-        mCountDownTimer = new CountDownTimer(mInitialTime, 1000) {
-            StringBuilder time = new StringBuilder();
-
-            @Override
-            public void onFinish() {
-                //mTextView.setText("Times Up!");
+            if (mCountDownTimer != null) {
+                mCountDownTimer.cancel();
+                mCountDownTimer = null;
             }
+            mCountDownTimer = new CountDownTimer(mInitialTime, 1000) {
 
-            @Override
-            public void onTick(long millisUntilFinished) {
-                time.setLength(0);
-
-                if (millisUntilFinished > DateUtils.DAY_IN_MILLIS) {
-
-                    long day = millisUntilFinished / 86400000;
-                    long hour = (millisUntilFinished - day * 86400000) / 3600000;
-                    long minute = (millisUntilFinished - day * 86400000L - hour * 3600000L) / 60000;
-                    long second = (millisUntilFinished - day * 86400000L - hour * 3600000L - minute * 60000) / 1000;
-
-                    ngay.setText(day + "");
-                    gio.setText(hour + "");
-                    phut.setText(minute + "");
-                    giay.setText(second + "");
-
-                } else {
-                    ngay.setText("00");
-                    gio.setText("00");
-                    phut.setText("00");
-                    giay.setText("00");
+                @Override
+                public void onFinish() {
+                    //mTextView.setText("Times Up!");
                 }
 
-            }
-        }.start();
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    if (millisUntilFinished > 0) {
+                        long day = millisUntilFinished / 86400000;
+                        long hour = (millisUntilFinished - day * 86400000) / 3600000;
+                        long minute = (millisUntilFinished - day * 86400000L - hour * 3600000L) / 60000;
+                        long second = (millisUntilFinished - day * 86400000L - hour * 3600000L - minute * 60000) / 1000;
+
+                        ngay.setText(day + "");
+                        gio.setText(hour + "");
+                        phut.setText(minute + "");
+                        giay.setText(second + "");
+
+                    } else {
+                        ngay.setText("00");
+                        gio.setText("00");
+                        phut.setText("00");
+                        giay.setText("00");
+                    }
+                }
+            }.start();
+        } catch (Exception e) {
+            ngay.setText("00");
+            gio.setText("00");
+            phut.setText("00");
+            giay.setText("00");
+        }
     }
 
     @Override

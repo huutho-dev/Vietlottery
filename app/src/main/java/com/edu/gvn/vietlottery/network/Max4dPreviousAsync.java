@@ -14,7 +14,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -75,9 +74,14 @@ public class Max4dPreviousAsync extends AsyncTask<String, Void, ArrayList<Max4dP
             readWriteJsonFileUtils.createJsonFileData(NAME_MAX4D_PREVIOUS,new Gson().toJson(listPrize));
             Collections.reverse(listPrize);
             return listPrize;
-        } catch (IOException e) {
-            listPrize = new Gson().fromJson(readWriteJsonFileUtils.readJsonFileData(NAME_MAX4D_PREVIOUS),new TypeToken<List<Max4dPrize>>(){}.getType());
-            Collections.reverse(listPrize);
+        } catch (Exception e) {
+            try {
+                listPrize = new Gson().fromJson(readWriteJsonFileUtils.readJsonFileData(NAME_MAX4D_PREVIOUS),new TypeToken<List<Max4dPrize>>(){}.getType());
+                Collections.reverse(listPrize);
+            }catch (Exception ex){
+                ex.printStackTrace();
+                listPrize = new ArrayList<>();
+            }
             return listPrize ;
         }
     }

@@ -14,7 +14,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Mega645DetailAsync extends AsyncTask<String, Void, Mega645Previous> {
@@ -64,10 +63,14 @@ public class Mega645DetailAsync extends AsyncTask<String, Void, Mega645Previous>
 
             readWriteJsonFileUtils.createJsonFileData(NAME_DETAIL_MEGA645,new Gson().toJson(mega645Previous));
             return mega645Previous;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-           // mega645Previous = new Mega645Previous("", "", "", "", mega645Prizes);
-            mega645Previous = new Gson().fromJson(NAME_DETAIL_MEGA645,Mega645Previous.class);
+            try{
+                mega645Previous = new Gson().fromJson(NAME_DETAIL_MEGA645,Mega645Previous.class);
+            }catch (Exception ex){
+                mega645Prizes = new ArrayList<>();
+                mega645Previous = new Mega645Previous("xxxxx","xx/xx/xxxx","xxxxxx","xxxx",mega645Prizes);
+            }
             return mega645Previous;
         }
     }

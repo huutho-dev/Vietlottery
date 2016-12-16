@@ -30,6 +30,7 @@
         android:layout_marginTop="@dimen/xxhdpi_8dp"
         android:background="@drawable/custom_button"
         android:text="@string/network_conn_button"
+        android:layout_marginBottom="@dimen/xxhdpi_8dp"
         android:textColor="@color/white" />
 
 </LinearLayout>

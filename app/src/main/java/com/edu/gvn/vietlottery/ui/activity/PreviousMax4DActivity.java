@@ -49,11 +49,15 @@ public class PreviousMax4DActivity extends BaseActivity implements Max4dPrevious
 
     @Override
     public void callBack(ArrayList<Max4dPrize> datas) {
-        if (datas != null) {
-            if (mDatas.size() != 0)
-                mDatas.clear();
-            mDatas.addAll(datas);
-            mAdapter.notifyDataSetChanged();
+        try{
+            if (datas != null) {
+                if (mDatas.size() != 0)
+                    mDatas.clear();
+                mDatas.addAll(datas);
+                mAdapter.notifyDataSetChanged();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

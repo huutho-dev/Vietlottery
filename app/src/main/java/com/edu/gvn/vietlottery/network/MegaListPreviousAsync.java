@@ -14,7 +14,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,10 +49,16 @@ public class MegaListPreviousAsync extends AsyncTask<String, Void, ArrayList<Meg
 
             readWriteJsonFileUtils.createJsonFileData(NAME_MEGA_LIST_PREVIOS, new Gson().toJson(datas));
             return datas;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            datas = new Gson().fromJson(readWriteJsonFileUtils.readJsonFileData(NAME_MEGA_LIST_PREVIOS), new TypeToken<List<MegaListPrevious>>() {
-            }.getType());
+            try{
+                datas = new Gson().fromJson(readWriteJsonFileUtils.readJsonFileData(NAME_MEGA_LIST_PREVIOS), new TypeToken<List<MegaListPrevious>>() {
+                }.getType());
+            }catch (Exception ex){
+                ex.printStackTrace();
+                datas = new ArrayList<>();
+            }
+
             return datas;
         }
     }
