@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
-import com.codemybrainsout.ratingdialog.RatingDialog;
 import com.edu.gvn.vietlottery.R;
 import com.edu.gvn.vietlottery.adapter.LotteryPagerAdapter;
 import com.edu.gvn.vietlottery.broadcast.NotifycationPublisher;
@@ -16,6 +15,10 @@ import com.edu.gvn.vietlottery.ui.fragment.Max4DFragment;
 import com.edu.gvn.vietlottery.ui.fragment.Mega645Fragment;
 
 import java.util.Calendar;
+
+import angtrim.com.fivestarslibrary.FiveStarsDialog;
+import angtrim.com.fivestarslibrary.NegativeReviewListener;
+import angtrim.com.fivestarslibrary.ReviewListener;
 
 public class MainActivity extends BaseActivity {
     private final String TAG = MainActivity.class.getSimpleName();
@@ -31,24 +34,49 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        showDialog();
-//        mTabLayout = (TabLayout) findViewById(R.id.tab_lottery);
-//        mViewPager = (ViewPager) findViewById(R.id.viewpager_lottery);
-//
-//        maxFragment = new Max4DFragment();
-//        megaFragment = new Mega645Fragment();
-//
-//        mLottAdapter = new LotteryPagerAdapter(this, getSupportFragmentManager());
-//        mLottAdapter.addFragment(megaFragment, getResources().getString(R.string.tab_mega));
-//        mLottAdapter.addFragment(maxFragment, getResources().getString(R.string.tab_max));
-//
-//        mViewPager.setAdapter(mLottAdapter);
-//        mTabLayout.setupWithViewPager(mViewPager);
+
+        mTabLayout = (TabLayout) findViewById(R.id.tab_lottery);
+        mViewPager = (ViewPager) findViewById(R.id.viewpager_lottery);
+
+        maxFragment = new Max4DFragment();
+        megaFragment = new Mega645Fragment();
+
+        mLottAdapter = new LotteryPagerAdapter(this, getSupportFragmentManager());
+        mLottAdapter.addFragment(megaFragment, getResources().getString(R.string.tab_mega));
+        mLottAdapter.addFragment(maxFragment, getResources().getString(R.string.tab_max));
+
+        mViewPager.setAdapter(mLottAdapter);
+        mTabLayout.setupWithViewPager(mViewPager);
 
         //set Push notify
         scheduleNotify(18, 0, 0);
+        openDialogRating();
+    }
 
+    /**
+     *  đánh giá 4,5 *  vào google play store để đánh giá thực tế
+     *  nếu nhỏ hơn 3 sao thì gửi bug hoặc ... cho dev bằng email : example@gmail.com
+     *  setForceMode (true) nhảy thẳng vào gg play k cần nhấn ok
+     */
+    private void openDialogRating() {
+        FiveStarsDialog fiveStarsDialog = new FiveStarsDialog(this,"example@gmail.com");
+        fiveStarsDialog.setRateText("Rate us")
+                .setTitle("Hãy chọn 5 sao")
+                .setForceMode(true)
+                .setUpperBound(2) // Market opened if a rating >= 2 is selected
+                .setNegativeReviewListener(new NegativeReviewListener() {
+                    @Override
+                    public void onNegativeReview(int i) {
 
+                    }
+                }) // OVERRIDE mail intent for negative review
+                .setReviewListener(new ReviewListener() {
+                    @Override
+                    public void onReview(int i) {
+
+                    }
+                }) // Used to listen for reviews (if you want to track them )
+                .showAfter(1);
     }
 
     /**
@@ -78,44 +106,18 @@ public class MainActivity extends BaseActivity {
         alarmManager.set(AlarmManager.RTC_WAKEUP, tringgerTime, pendingIntent);
     }
 
-    private void showDialog() {
-
-
-        final RatingDialog ratingDialog = new RatingDialog.Builder(this)
-                .icon(getResources().getDrawable(R.drawable.ball_red))
-                .threshold(3)
-                .title("How was your experience with us?")
-                .titleTextColor(R.color.black)
-                .positiveButtonText("Not Now")
-                .negativeButtonText("Never")
-                .positiveButtonTextColor(R.color.white)
-                .negativeButtonTextColor(R.color.grey_500)
-                .formTitle("Submit Feedback")
-                .formHint("Tell us where we can improve")
-                .formSubmitText("Submit")
-                .formCancelText("Cancel")
-                .ratingBarColor(R.color.accent)
-                .positiveButtonBackgroundColor(R.color.accent)
-                .negativeButtonBackgroundColor(R.color.accent)
-                .formCancelText("Cancel")
-                .build();
-
-
-
-        ratingDialog.show();
-    }
 
 
     @Override
     protected void onResume() {
         super.onResume();
 
-//        if (isNetworkConnection()) {
-//            maxFragment.requestData(MainActivity.this);
-//            megaFragment.requestData(MainActivity.this);
-//        } else {
-//            checkInternet();
-//        }
+        if (isNetworkConnection()) {
+            maxFragment.requestData(MainActivity.this);
+            megaFragment.requestData(MainActivity.this);
+        } else {
+            checkInternet();
+        }
 
     }
 }

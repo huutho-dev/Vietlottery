@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import com.edu.gvn.vietlottery.Config;
 import com.edu.gvn.vietlottery.entity.Max4DCurrent;
 import com.edu.gvn.vietlottery.entity.sub.Max4dPrize;
+import com.edu.gvn.vietlottery.utils.LogUtils;
 import com.edu.gvn.vietlottery.utils.ReadWriteJsonFileUtils;
 import com.google.gson.Gson;
 

@@ -75,6 +75,8 @@ public class Max4dPreviousAsync extends AsyncTask<String, Void, ArrayList<Max4dP
             Collections.reverse(listPrize);
             return listPrize;
         } catch (Exception e) {
+            e.printStackTrace();
+
             try {
                 listPrize = new Gson().fromJson(readWriteJsonFileUtils.readJsonFileData(NAME_MAX4D_PREVIOUS),new TypeToken<List<Max4dPrize>>(){}.getType());
                 Collections.reverse(listPrize);
