@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Base">
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name="com.game24h.vietlottery.ui.activity.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,19 +22,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.PreviousMega645Activity"
+            android:name="com.game24h.vietlottery.ui.activity.PreviousMega645Activity"
             android:theme="@style/AppTheme2"
             android:screenOrientation="portrait" />
         <activity
             android:theme="@style/AppTheme2"
-            android:name=".ui.activity.PreviousMax4DActivity"
+            android:name="com.game24h.vietlottery.ui.activity.PreviousMax4DActivity"
             android:screenOrientation="portrait" />
         <activity
             android:theme="@style/AppTheme2"
-            android:name=".ui.activity.Mega645DetailActivity"
+            android:name="com.game24h.vietlottery.ui.activity.Mega645DetailActivity"
             android:screenOrientation="portrait" />
 
-       <receiver android:name=".broadcast.NotifycationPublisher"/>
+       <receiver android:name="com.game24h.vietlottery.broadcast.NotifycationPublisher"/>
 
         <meta-data
             android:name="com.google.android.gms.version"
