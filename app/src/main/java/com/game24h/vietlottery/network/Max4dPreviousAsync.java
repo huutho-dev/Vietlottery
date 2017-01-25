@@ -49,10 +49,16 @@ public class Max4dPreviousAsync extends AsyncTask<String, Void, ArrayList<Max4dP
 
             Elements totalPage = document.select(GET_TOTAL_PAGE);
             int numberLi = totalPage.size();
-            int lastPage = numberLi - 2; // trừ đi 2 cái < và >
-            int twoPageAgo = lastPage - 2; // lấy kết quả 2 trang cuối thôi
+            int lastPage = numberLi - 2; // trừ đi 2 cái 0 và >
+            int twoPageAgo = 0;
 
-            for (int i = lastPage; i >= twoPageAgo; i--) {
+            if (lastPage >= 2) {
+                twoPageAgo = lastPage - 2; // lấy kết quả 2 trang cuối thôi
+            } else {
+                twoPageAgo = 1;
+            }
+
+            for (int i = lastPage; i > twoPageAgo; i--) {
 
                 ArrayList<Max4dPrize> datasInOnePage = new ArrayList<>();
 
@@ -86,6 +92,7 @@ public class Max4dPreviousAsync extends AsyncTask<String, Void, ArrayList<Max4dP
                 Collections.reverse(datasInOnePage);
                 listPrize.addAll(datasInOnePage);
             }
+
             readWriteJsonFileUtils.createJsonFileData(NAME_MAX4D_PREVIOUS, new Gson().toJson(listPrize));
 
             return listPrize;
