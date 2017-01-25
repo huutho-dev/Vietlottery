@@ -2,6 +2,7 @@ package com.game24h.vietlottery.network;
 
 import android.content.Context;
 import android.os.AsyncTask;
+
 import com.game24h.vietlottery.Config;
 import com.game24h.vietlottery.entity.sub.Max4dPrize;
 import com.game24h.vietlottery.utils.ReadWriteJsonFileUtils;
@@ -25,6 +26,8 @@ public class Max4dPreviousAsync extends AsyncTask<String, Void, ArrayList<Max4dP
     private static final String GET_BOX_RESULT = "div.box-result-max4d";
     private static final String GET_RESULT = "ul.num-result-max4d";
 
+    private static final String GET_TOTAL_PAGE = "ul.pagination.pagination-sm > li > a";
+
     public interface Max4dPreviousCallback {
         void callBack(ArrayList<Max4dPrize> datas);
     }
@@ -43,13 +46,23 @@ public class Max4dPreviousAsync extends AsyncTask<String, Void, ArrayList<Max4dP
         ArrayList<Max4dPrize> listPrize = new ArrayList<>();
         try {
             Document document = Jsoup.connect(strings[0]).timeout(Config.REQUEST_TIME_OUT).get();
-            Elements root = document.select(ROOT_TABLE);
 
+            Elements totalPage = document.select(GET_TOTAL_PAGE);
+            int numberLi = totalPage.size();
+            int lastPage = numberLi - 2; // trừ đi 2 cái < và >
+            int twoPageAgo = lastPage - 2; // lấy kết quả 2 trang cuối thôi
 
+            for (int i = lastPage; i >= twoPageAgo; i--) {
+
+                ArrayList<Max4dPrize> datasInOnePage = new ArrayList<>();
+
+                String pages = strings[0] + "?p=" + i;
+                Document documentPage = Jsoup.connect(pages).timeout(Config.REQUEST_TIME_OUT).get();
+                Elements root = documentPage.select(ROOT_TABLE);
                 int itemSize = root.size();
 
-                for (int i = 0; i < itemSize; i++) {
-                    Element item = root.get(i);
+                for (int k = 0; k < itemSize; k++) {
+                    Element item = root.get(k);
 
                     String ngayQuayThuong = item.select("td").get(1).select(GET_NGAY_QUAY_THUONG).select("span").get(0).text();
                     String kyQuayThuong = item.select("td").get(1).select(GET_NGAY_QUAY_THUONG).select("span").get(1).text();
@@ -67,23 +80,27 @@ public class Max4dPreviousAsync extends AsyncTask<String, Void, ArrayList<Max4dP
                     Max4dPrize max4dPrize = new Max4dPrize(kyQuayThuong, ngayQuayThuong, giaiNhat,
                             giaiNhi1, giaiNhi2, giaiBa1, giaiBa2, giaiBa3, giaiKK1, giaiKK2);
 
-                    listPrize.add(max4dPrize);
+                    datasInOnePage.add(max4dPrize);
 
+                }
+                Collections.reverse(datasInOnePage);
+                listPrize.addAll(datasInOnePage);
             }
-            readWriteJsonFileUtils.createJsonFileData(NAME_MAX4D_PREVIOUS,new Gson().toJson(listPrize));
-            Collections.reverse(listPrize);
+            readWriteJsonFileUtils.createJsonFileData(NAME_MAX4D_PREVIOUS, new Gson().toJson(listPrize));
+
             return listPrize;
         } catch (Exception e) {
             e.printStackTrace();
 
             try {
-                listPrize = new Gson().fromJson(readWriteJsonFileUtils.readJsonFileData(NAME_MAX4D_PREVIOUS),new TypeToken<List<Max4dPrize>>(){}.getType());
+                listPrize = new Gson().fromJson(readWriteJsonFileUtils.readJsonFileData(NAME_MAX4D_PREVIOUS), new TypeToken<List<Max4dPrize>>() {
+                }.getType());
                 Collections.reverse(listPrize);
-            }catch (Exception ex){
+            } catch (Exception ex) {
                 ex.printStackTrace();
                 listPrize = new ArrayList<>();
             }
-            return listPrize ;
+            return listPrize;
         }
     }
 

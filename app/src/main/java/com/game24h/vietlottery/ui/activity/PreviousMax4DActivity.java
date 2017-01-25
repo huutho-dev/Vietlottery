@@ -5,6 +5,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.edu.gvn.vietlottery.R;
 import com.game24h.vietlottery.Config;
@@ -16,8 +18,8 @@ import java.util.ArrayList;
 
 public class PreviousMax4DActivity extends BaseActivity implements Max4dPreviousAsync.Max4dPreviousCallback {
 
-    private Toolbar toolbar ;
-
+    private Toolbar toolbar;
+    private ProgressBar loading;
     private RecyclerView listMax4d;
     private Max4DListPreviousAdapter mAdapter;
     private RecyclerView.LayoutManager linearManager;
@@ -27,6 +29,9 @@ public class PreviousMax4DActivity extends BaseActivity implements Max4dPrevious
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_previous_max);
+
+        loading = (ProgressBar) findViewById(R.id.loading);
+        loading.setVisibility(View.VISIBLE);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -42,21 +47,22 @@ public class PreviousMax4DActivity extends BaseActivity implements Max4dPrevious
         listMax4d.setLayoutManager(linearManager);
         listMax4d.setAdapter(mAdapter);
 
-        Max4dPreviousAsync async = new Max4dPreviousAsync(this,this);
+        Max4dPreviousAsync async = new Max4dPreviousAsync(this, this);
         async.execute(Config.VIETLOTT_PREVIOUS_MAX);
     }
 
 
     @Override
     public void callBack(ArrayList<Max4dPrize> datas) {
-        try{
+        try {
             if (datas != null) {
                 if (mDatas.size() != 0)
                     mDatas.clear();
                 mDatas.addAll(datas);
+                loading.setVisibility(View.GONE);
                 mAdapter.notifyDataSetChanged();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
